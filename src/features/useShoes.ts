@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getShoes } from '../services/apiShoes';
 
 export function useShoes() {

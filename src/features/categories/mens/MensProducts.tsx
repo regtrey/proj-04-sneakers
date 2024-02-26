@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import Product from '../../../ui/Product';
 import { useShoes } from '../../useShoes';
@@ -18,7 +19,11 @@ function MensProducts() {
       {isLoading
         ? 'Loading...'
         : shoes
-        ? shoes.map((shoes) => <Product key={shoes.id} product={shoes} />)
+        ? shoes.map((shoes) => (
+            <Link key={shoes.id} to={`/mens/${shoes.id}`}>
+              <Product product={shoes} />
+            </Link>
+          ))
         : `${error}`}
     </StyledMensProducts>
   );

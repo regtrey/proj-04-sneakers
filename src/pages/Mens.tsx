@@ -16,7 +16,6 @@ const Layout = styled.div`
   display: grid;
   grid-template-columns: 20rem 1fr;
   gap: 4rem;
-  overflow: scroll;
 `;
 
 const Refinements = styled.aside`
