@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { MensProduct } from '../features/categories/mens/Interface';
+import { IProduct } from '../types/ProductType';
 
 const StyledProduct = styled.div`
   height: max-content;
-  /* background-color: violet; */
   position: relative;
 `;
 
@@ -23,6 +22,7 @@ const ProductDetails = styled.div`
 const Tag = styled.span`
   font-weight: 500;
   color: #b83737;
+  text-transform: capitalize;
 `;
 
 const Name = styled.span`
@@ -39,16 +39,16 @@ const Price = styled.span`
   margin-top: 0.75rem;
 `;
 
-interface ProductItem {
-  product: MensProduct;
+interface IProductProps {
+  product: IProduct;
 }
 
-function Product({ product }: ProductItem) {
+function Product({ product }: IProductProps) {
   const { name, category, colors, tag, price, image, alt } = product;
 
   return (
     <StyledProduct>
-      <ProductImage src={image} alt={alt} />
+      <ProductImage src={image[0]} alt={alt} />
       <ProductDetails>
         <Tag>{tag}</Tag>
         <Name>{name}</Name>

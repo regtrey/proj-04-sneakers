@@ -1,26 +1,25 @@
 import styled from 'styled-components';
 
 import Product from '../../../ui/Product';
-import { productData } from '../../../data/products';
-import { MensProduct } from './Interface';
+import { useShoes } from '../../useShoes';
 
 const StyledMensProducts = styled.div`
   height: max-content;
-  /* background-color: aquamarine; */
-
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 `;
 
-const products: MensProduct[] = productData;
-
 function MensProducts() {
+  const { isLoading, shoes, error } = useShoes();
+
   return (
     <StyledMensProducts>
-      {products.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
+      {isLoading
+        ? 'Loading...'
+        : shoes
+        ? shoes.map((shoes) => <Product key={shoes.id} product={shoes} />)
+        : `${error}`}
     </StyledMensProducts>
   );
 }

@@ -1,11 +1,12 @@
-export interface MensProduct {
-  id: string;
+export interface IProduct {
+  id: number;
   name: string;
+  brand: string;
   category: string;
+  sizes: string[];
   colors: string[];
   tag: string;
   price: number;
-  image: string;
-  variants: string[];
+  image: string[];
   alt: string;
 }

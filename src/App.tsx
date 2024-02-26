@@ -1,13 +1,16 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import GlobalStyles from './styles/GlobalStyles';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import Layout from './ui/Layout';
 import Home from './pages/Home';
 import Mens from './pages/Mens';
+import GlobalStyles from './styles/GlobalStyles';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -16,7 +19,7 @@ function App() {
           <Route path="mens" element={<Mens />} />
         </Route>
       </Routes>
-    </>
+    </QueryClientProvider>
   );
 }
 

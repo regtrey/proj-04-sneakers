@@ -13,7 +13,7 @@ const StyledNav = styled.nav`
 
 const NavLinkList = styled.ul`
   height: 100%;
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
 `;

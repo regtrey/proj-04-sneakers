@@ -11,6 +11,8 @@ const StyledLayout = styled.div`
 `;
 
 const Main = styled.main`
+  height: 100%;
+
   grid-row: 2 / 3;
 `;
 
