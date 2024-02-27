@@ -40,7 +40,7 @@ const ProductName = styled.h1`
 const ProductCategory = styled.h2`
   font-size: 2rem;
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  margin: 0.75rem 0 1.5rem;
   text-transform: capitalize;
 `;
 
@@ -103,8 +103,7 @@ const SizeHeading = styled.h2`
 const SizeContainer = styled.div`
   height: max-content;
   width: 38rem;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin: 1rem 0 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -210,7 +209,7 @@ function ProductDetails() {
   return (
     <StyledProductDetails>
       <ProductImageContainer>
-        <ProductImage src={image[0]} alt={alt} />
+        <ProductImage src={image[currentSelectedStyle - 1]} alt={alt} />
       </ProductImageContainer>
       <Details>
         <ProductName>{name}</ProductName>
