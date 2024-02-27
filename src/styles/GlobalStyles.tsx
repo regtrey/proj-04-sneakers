@@ -20,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
         --border-radius-sm: 6px;
         --border-radius-md: 8px;
         --border-radius-lg: 10px;
+        --border-radius-full: 50%;
     }
 
     *, 

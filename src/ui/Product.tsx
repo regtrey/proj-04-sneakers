@@ -54,7 +54,7 @@ function Product({ product }: IProductProps) {
         <Name>{name}</Name>
         <ShoeCategory>
           {category}'s Shoes <br />
-          {colors.length} Colour
+          {colors.length} {colors.length > 1 ? 'Colours' : 'Colour'}
         </ShoeCategory>
         <Price>${price}</Price>
       </ProductDetails>

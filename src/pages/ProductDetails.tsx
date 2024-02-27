@@ -1,16 +1,20 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useShoe } from '../features/useShoe';
 
 const StyledProductDetails = styled.div`
-  padding: 6rem 4rem;
+  padding: 6rem 0;
   display: flex;
   justify-content: center;
+  gap: 4rem;
   position: relative;
+  /* background-color: orange; */
 `;
 
 const ProductImageContainer = styled.div`
-  height: 80vh;
-  width: 40vw;
+  height: 65rem;
+  width: 55rem;
   position: relative;
 `;
 
@@ -22,10 +26,11 @@ const ProductImage = styled.img`
 `;
 
 const Details = styled.div`
-  width: 50%;
+  width: 70rem;
+  width: max-content;
   /* background-color: #e49090; */
   padding: 2rem;
-  padding-left: 6rem;
+  /* padding-left: 6rem; */
 `;
 
 const ProductName = styled.h1`
@@ -46,27 +51,42 @@ const ProductPrice = styled.span`
 `;
 
 const Container = styled.div`
-  width: max-content;
+  width: 38rem;
   /* background-color: black; */
   margin: 3rem 0;
   display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-`;
-
-const ProductVariantsBox = styled.div`
-  height: 8rem;
-  width: 8rem;
-  border-radius: var(--border-radius-sm);
-  outline: 2px solid transparent;
+  flex-wrap: wrap;
+  gap: 1rem;
   position: relative;
 
-  &:hover {
-    outline: 2px solid #000;
+  & input {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
   }
 `;
 
-const ProductVariants = styled.img`
+interface IVariantsBox {
+  $isSelected: boolean;
+}
+
+const ProductVariantsBox = styled.div<IVariantsBox>`
+  height: 6.8rem;
+  width: 6.8rem;
+  border-radius: var(--border-radius-sm);
+  outline: ${(props) =>
+    props.$isSelected ? '1px solid #000' : '1px solid transparent'};
+  position: relative;
+
+  &:hover {
+    outline: 1px solid #000;
+  }
+`;
+
+const ProductVariantsImage = styled.img`
   height: 100%;
   width: 100%;
   border-radius: var(--border-radius-sm);
@@ -76,13 +96,114 @@ const ProductVariants = styled.img`
   cursor: pointer;
 `;
 
+const SizeHeading = styled.h2`
+  font-size: 2rem;
+  font-weight: 500;
+`;
+
+const SizeContainer = styled.div`
+  height: max-content;
+  width: 38rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
+interface ISizeProps {
+  $isSelected: boolean;
+}
+
+const Size = styled.div<ISizeProps>`
+  height: 5rem;
+  width: 12rem;
+  font-size: 1.5rem;
+  border: ${(props) =>
+    props.$isSelected ? '1px solid #000' : '1px solid var(--color-gray-100)'};
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &:hover {
+    border: 1px solid #000;
+  }
+
+  & input {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  height: max-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const buttonType = {
+  primary: css`
+    background-color: #000;
+    border: none;
+    color: var(--color-gray-0);
+
+    &:hover {
+      background-color: var(--color-gray-700);
+    }
+  `,
+  secondary: css`
+    background-color: var(--color-gray-0);
+    border: 1.5px solid var(--color-gray-200);
+
+    &:hover {
+      border: 1.5px solid #000;
+    }
+  `,
+};
+
+interface IButtonType {
+  type: 'primary' | 'secondary';
+}
+
+const Button = styled.button<IButtonType>`
+  height: 6rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  ${(props) => buttonType[props.type]}
+`;
+
 function ProductDetails() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { isLoading, shoe, error } = useShoe();
+
+  const currentSelectedStyle = Number(searchParams.get('style')) || 1;
+  const currentSelectedSize = Number(searchParams.get('size'));
 
   if (isLoading) return 'Loading...';
   if (!shoe || error) return 'Error...';
 
-  const { name, category, colors, tag, price, image, alt } = shoe[0];
+  const { id, name, category, colors, tag, sizes, price, image, alt } = shoe[0];
+
+  const handleSelect = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
+    searchParams.set(field, e.target.value);
+    setSearchParams(searchParams);
+  };
 
   return (
     <StyledProductDetails>
@@ -96,11 +217,45 @@ function ProductDetails() {
 
         <Container>
           {image.map((variant, i) => (
-            <ProductVariantsBox key={i}>
-              <ProductVariants src={variant} alt={`${alt}-0${i}`} />
+            <ProductVariantsBox
+              key={i}
+              $isSelected={currentSelectedStyle === i + 1}
+            >
+              <input
+                type="radio"
+                value={i + 1}
+                onClick={(e) => handleSelect(e, 'style')}
+              />
+              <ProductVariantsImage src={variant} alt={`${alt}-0${i}`} />
             </ProductVariantsBox>
           ))}
         </Container>
+
+        <SizeHeading>Select Size</SizeHeading>
+        <SizeContainer>
+          {sizes.map((size, index) => {
+            const curSize = size.split(' ')[1];
+            return (
+              <Size
+                key={index}
+                $isSelected={currentSelectedSize === Number(curSize)}
+              >
+                <input
+                  id={curSize}
+                  type="radio"
+                  value={curSize}
+                  onClick={(e) => handleSelect(e, 'size')}
+                />
+                {size}
+              </Size>
+            );
+          })}
+        </SizeContainer>
+
+        <ButtonContainer>
+          <Button type="primary">Add to Bag</Button>
+          <Button type="secondary">Favourite</Button>
+        </ButtonContainer>
       </Details>
     </StyledProductDetails>
   );
