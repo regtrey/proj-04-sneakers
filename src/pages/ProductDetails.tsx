@@ -30,7 +30,6 @@ const Details = styled.div`
   width: max-content;
   /* background-color: #e49090; */
   padding: 2rem;
-  /* padding-left: 6rem; */
 `;
 
 const ProductName = styled.h1`
@@ -104,7 +103,8 @@ const SizeHeading = styled.h2`
 const SizeContainer = styled.div`
   height: max-content;
   width: 38rem;
-  margin: 1rem 0;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -156,6 +156,7 @@ const buttonType = {
 
     &:hover {
       background-color: var(--color-gray-700);
+      background-color: #404040;
     }
   `,
   secondary: css`
@@ -198,10 +199,11 @@ function ProductDetails() {
   const { id, name, category, colors, tag, sizes, price, image, alt } = shoe[0];
 
   const handleSelect = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.MouseEvent<HTMLInputElement>,
     field: string
   ) => {
-    searchParams.set(field, e.target.value);
+    const target = e.target as HTMLInputElement;
+    searchParams.set(field, target.value);
     setSearchParams(searchParams);
   };
 
