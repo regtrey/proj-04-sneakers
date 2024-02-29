@@ -9,4 +9,5 @@ export interface IProduct {
   price: number;
   image: string[];
   alt: string;
+  placeholder: string[];
 }

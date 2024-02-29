@@ -22,6 +22,7 @@ export type Database = {
           price: number;
           sizes: string[];
           tag: string;
+          placeholder: string[];
         };
         Insert: {
           alt?: string;
@@ -35,6 +36,7 @@ export type Database = {
           price?: number;
           sizes?: string[];
           tag?: string;
+          placeholder?: string[];
         };
         Update: {
           alt?: string;
@@ -48,6 +50,7 @@ export type Database = {
           price?: number;
           sizes?: string[];
           tag?: string;
+          placeholder?: string[];
         };
         Relationships: [];
       };

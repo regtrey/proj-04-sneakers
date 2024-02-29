@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useShoe } from '../features/useShoe';
 
 const StyledProductDetails = styled.div`
@@ -18,7 +20,7 @@ const ProductImageContainer = styled.div`
   position: relative;
 `;
 
-const ProductImage = styled.img`
+const ProductImage = styled(LazyLoadImage)`
   height: 100%;
   width: 100%;
   border-radius: var(--border-radius-md);
@@ -85,9 +87,9 @@ const ProductVariantsBox = styled.div<IVariantsBox>`
   }
 `;
 
-const ProductVariantsImage = styled.img`
-  height: 100%;
-  width: 100%;
+const ProductVariantsImage = styled(LazyLoadImage)`
+  height: 6.8rem;
+  width: 6.8rem;
   border-radius: var(--border-radius-sm);
   object-position: center;
   object-fit: cover;
@@ -195,7 +197,7 @@ function ProductDetails() {
   if (isLoading) return 'Loading...';
   if (!shoe || error) return 'Error...';
 
-  const { id, name, category, colors, tag, sizes, price, image, alt } = shoe[0];
+  const { id, name, category, sizes, price, image, alt, placeholder } = shoe[0];
 
   const handleSelect = (
     e: React.MouseEvent<HTMLInputElement>,
@@ -209,7 +211,12 @@ function ProductDetails() {
   return (
     <StyledProductDetails>
       <ProductImageContainer>
-        <ProductImage src={image[currentSelectedStyle - 1]} alt={alt} />
+        <ProductImage
+          src={image[currentSelectedStyle - 1]}
+          alt={alt}
+          placeholderSrc={placeholder[currentSelectedStyle - 1]}
+          effect="blur"
+        />
       </ProductImageContainer>
       <Details>
         <ProductName>{name}</ProductName>
@@ -227,7 +234,12 @@ function ProductDetails() {
                 value={i + 1}
                 onClick={(e) => handleSelect(e, 'style')}
               />
-              <ProductVariantsImage src={variant} alt={`${alt}-0${i}`} />
+              <ProductVariantsImage
+                src={variant}
+                alt={`${alt}-0${i}`}
+                placeholderSrc={placeholder[i]}
+                effect="blur"
+              />
             </ProductVariantsBox>
           ))}
         </Container>

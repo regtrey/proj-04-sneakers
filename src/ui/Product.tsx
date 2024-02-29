@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { IProduct } from '../types/ProductType';
 
 const StyledProduct = styled.div`
@@ -6,7 +9,7 @@ const StyledProduct = styled.div`
   position: relative;
 `;
 
-const ProductImage = styled.img`
+const ProductImage = styled(LazyLoadImage)`
   width: 100%;
   display: block;
 `;
@@ -44,11 +47,17 @@ interface IProductProps {
 }
 
 function Product({ product }: IProductProps) {
-  const { name, category, colors, tag, price, image, alt } = product;
+  const { name, category, colors, tag, price, image, alt, placeholder } =
+    product;
 
   return (
     <StyledProduct>
-      <ProductImage src={image[0]} alt={alt} />
+      <ProductImage
+        src={image[0]}
+        alt={alt}
+        placeholderSrc={placeholder[0]}
+        effect="blur"
+      />
       <ProductDetails>
         <Tag>{tag}</Tag>
         <Name>{name}</Name>
