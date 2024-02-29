@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useShoe } from '../features/useShoe';
+import { useAppDispatch } from '../store';
+import { addCartItem } from '../features/cart/cartSlice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -13,7 +15,6 @@ const StyledProductDetails = styled.div`
   justify-content: center;
   gap: 4rem;
   position: relative;
-  /* background-color: orange; */
 `;
 
 const ProductImageContainer = styled.div`
@@ -32,7 +33,6 @@ const ProductImage = styled(LazyLoadImage)`
 const Details = styled.div`
   width: 70rem;
   width: max-content;
-  /* background-color: #e49090; */
   padding: 2rem;
 `;
 
@@ -55,7 +55,6 @@ const ProductPrice = styled.span`
 
 const Container = styled.div`
   width: 38rem;
-  /* background-color: black; */
   margin: 3rem 0;
   display: flex;
   flex-wrap: wrap;
@@ -151,47 +150,13 @@ const ButtonContainer = styled.div`
   gap: 1rem;
 `;
 
-// const buttonType = {
-//   primary: css`
-//     background-color: #000;
-//     border: none;
-//     color: var(--color-gray-0);
-
-//     &:hover {
-//       background-color: var(--color-gray-700);
-//       background-color: #404040;
-//     }
-//   `,
-//   secondary: css`
-//     background-color: var(--color-gray-0);
-//     border: 1.5px solid var(--color-gray-200);
-
-//     &:hover {
-//       border: 1.5px solid #000;
-//     }
-//   `,
-// };
-
-// interface IButtonType {
-//   type: 'primary' | 'secondary';
-// }
-
-// const Button = styled.button<IButtonType>`
-//   height: 6rem;
-//   font-size: 1.75rem;
-//   font-weight: 500;
-//   border-radius: 100px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   cursor: pointer;
-
-//   ${(props) => buttonType[props.type]}
-// `;
-
 function ProductDetails() {
+  const navigate = useNavigate();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const { isLoading, shoe, error } = useShoe();
+
+  const dispatch = useAppDispatch();
 
   const currentSelectedStyle = Number(searchParams.get('style')) || 1;
   const currentSelectedSize = Number(searchParams.get('size'));
@@ -199,7 +164,8 @@ function ProductDetails() {
   if (isLoading) return 'Loading...';
   if (!shoe || error) return 'Error...';
 
-  const { id, name, category, sizes, price, image, alt, placeholder } = shoe[0];
+  const { id, name, category, colors, sizes, price, image, alt, placeholder } =
+    shoe[0];
 
   const handleSelect = (
     e: React.MouseEvent<HTMLInputElement>,
@@ -208,6 +174,26 @@ function ProductDetails() {
     const target = e.target as HTMLInputElement;
     searchParams.set(field, target.value);
     setSearchParams(searchParams);
+  };
+
+  const handleAddToBag = () => {
+    dispatch(
+      addCartItem({
+        id,
+        name,
+        category,
+        color: colors[currentSelectedStyle - 1],
+        sizes,
+        selectedSize: currentSelectedSize,
+        image: image[currentSelectedStyle - 1],
+        alt,
+        placeholder,
+        price,
+        quantity: 1,
+        total: price,
+      })
+    );
+    navigate('/cart');
   };
 
   return (
@@ -268,7 +254,7 @@ function ProductDetails() {
         </SizeContainer>
 
         <ButtonContainer>
-          <Button type="primary" $size="lg">
+          <Button type="primary" $size="lg" onClick={handleAddToBag}>
             Add to Bag
           </Button>
           <Button type="secondary" $size="lg">

@@ -16,7 +16,6 @@ const Heading = styled.h1`
 
 function CartBag() {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
 
   return (
     <StyledCartBag>

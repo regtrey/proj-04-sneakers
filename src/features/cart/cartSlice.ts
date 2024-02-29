@@ -6,12 +6,13 @@ export interface ICartItems {
   category: string;
   color: string;
   sizes: string[];
-  selectedSize: string;
+  selectedSize: number;
   image: string;
   alt: string;
   placeholder: string;
   price: number;
   quantity: number;
+  total: number;
 }
 
 interface ICartState {
@@ -40,7 +41,7 @@ const initialState: ICartState = {
         'US 12.5',
         'US 13',
       ],
-      selectedSize: 'US 9.5',
+      selectedSize: 9.5,
       image:
         'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-01.png',
       alt: 'Air Jordan 1 Low SE',
@@ -48,6 +49,7 @@ const initialState: ICartState = {
         'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-placeholder-01.jpg',
       price: 145,
       quantity: 1,
+      total: 145,
     },
   ],
 };
@@ -68,11 +70,13 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       state.cartItems[itemIndex].quantity = action.payload.quantity;
-      state.cartItems[itemIndex].price *= action.payload.quantity;
+      state.cartItems[itemIndex].total =
+        state.cartItems[itemIndex].price * action.payload.quantity;
     },
   },
 });
 
 export const { addCartItem, deleteCartItem, updateItemQuantity } =
   cartSlice.actions;
+
 export default cartSlice.reducer;

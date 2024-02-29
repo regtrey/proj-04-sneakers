@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ItemPrice } from './CartItem';
 import { Button } from '../../ui/Button';
+import { useAppSelector } from '../../store';
 
 const StyledSummary = styled.div`
   height: max-content;
@@ -32,22 +33,31 @@ const Total = styled.div`
   justify-content: space-between;
 `;
 
+const MISC_FEE = 5;
+
 function Summary() {
+  const cartItems = useAppSelector((state) => state.cart.cartItems);
+
+  const subTotal = cartItems.reduce((acc, cur) => acc + cur.total, 0);
+  const totalPrice = subTotal + MISC_FEE;
+
+  const handleCheckout = () => {};
+
   return (
     <StyledSummary>
       <Heading>Summary</Heading>
       <SubTotal>
-        Subtotal <ItemPrice>$142</ItemPrice>
+        Subtotal <ItemPrice>${subTotal}</ItemPrice>
       </SubTotal>
       <SubTotal>
-        Estimated Delivery & Handling <ItemPrice>$5</ItemPrice>
+        Estimated Delivery & Handling <ItemPrice>${MISC_FEE}</ItemPrice>
       </SubTotal>
 
       <Total>
-        Total <ItemPrice>$147</ItemPrice>
+        Total <ItemPrice>${totalPrice}</ItemPrice>
       </Total>
 
-      <Button type="primary" $size="lg">
+      <Button type="primary" $size="lg" onClick={handleCheckout}>
         Checkout
       </Button>
     </StyledSummary>

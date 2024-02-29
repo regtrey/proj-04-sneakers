@@ -3,7 +3,6 @@ import { ICartItems, updateItemQuantity } from './cartSlice';
 import { HiOutlineHeart, HiOutlineTrash } from 'react-icons/hi2';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { useShoe } from '../useShoe';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../store';
 
@@ -19,6 +18,9 @@ const StyledCartItem = styled.div`
 const ItemImage = styled(LazyLoadImage)`
   height: 16.5rem;
   width: 16.5rem;
+  object-position: center;
+  object-fit: cover;
+  display: block;
   background-color: var(--color-gray-300);
 `;
 
@@ -109,14 +111,12 @@ function CartItem({ item }: ICartItemProps) {
     image,
     alt,
     placeholder,
-    price,
     quantity,
+    total,
   } = item;
 
   useEffect(() => {
-    const selectedSizeNum = Number(selectedSize.split(' ')[1]);
-
-    setSize(selectedSizeNum);
+    setSize(selectedSize);
     setQty(quantity);
   }, []);
 
@@ -183,7 +183,7 @@ function CartItem({ item }: ICartItemProps) {
         </ActionContainer>
       </ItemDetailsContainer>
 
-      <ItemPrice>${price}.00</ItemPrice>
+      <ItemPrice>${total}.00</ItemPrice>
     </StyledCartItem>
   );
 }
