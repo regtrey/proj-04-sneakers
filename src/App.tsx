@@ -6,6 +6,7 @@ import Layout from './ui/Layout';
 import Home from './pages/Home';
 import Mens from './pages/Mens';
 import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
 import GlobalStyles from './styles/GlobalStyles';
 
 // Setting up react query
@@ -31,6 +32,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="mens" element={<Mens />} />
           <Route path="mens/:id" element={<ProductDetails />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>
     </QueryClientProvider>

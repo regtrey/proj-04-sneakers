@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface ICartItems {
+export interface ICartItems {
   id: number;
   name: string;
   category: string;
   color: string;
-  size: string;
+  sizes: string[];
+  selectedSize: string;
   image: string;
   alt: string;
+  placeholder: string;
   price: number;
   quantity: number;
 }
@@ -20,13 +22,31 @@ const initialState: ICartState = {
   cartItems: [
     {
       id: 1,
-      name: 'Nike SB Force 58',
-      category: 'Skate Shoes',
-      color: 'Phantom/Summit White/Sail/University Blue',
-      size: 'US 9.5',
-      image: 'image.jpeg',
-      alt: 'Nike SB Force 58',
-      price: 92,
+      name: 'Air Jordan 1 Low SE',
+      category: 'men',
+      color: 'White/Black/Sail/Blue Grey',
+      sizes: [
+        'US 7',
+        'US 7.5',
+        'US 8',
+        'US 8.5',
+        'US 9',
+        'US 9.5',
+        'US 10',
+        'US 10.5',
+        'US 11',
+        'US 11.5',
+        'US 12',
+        'US 12.5',
+        'US 13',
+      ],
+      selectedSize: 'US 9.5',
+      image:
+        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-01.png',
+      alt: 'Air Jordan 1 Low SE',
+      placeholder:
+        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-placeholder-01.jpg',
+      price: 145,
       quantity: 1,
     },
   ],

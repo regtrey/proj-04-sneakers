@@ -1,9 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useShoe } from '../features/useShoe';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { useShoe } from '../features/useShoe';
+
+import { Button } from '../ui/Button';
 
 const StyledProductDetails = styled.div`
   padding: 6rem 0;
@@ -149,43 +151,43 @@ const ButtonContainer = styled.div`
   gap: 1rem;
 `;
 
-const buttonType = {
-  primary: css`
-    background-color: #000;
-    border: none;
-    color: var(--color-gray-0);
+// const buttonType = {
+//   primary: css`
+//     background-color: #000;
+//     border: none;
+//     color: var(--color-gray-0);
 
-    &:hover {
-      background-color: var(--color-gray-700);
-      background-color: #404040;
-    }
-  `,
-  secondary: css`
-    background-color: var(--color-gray-0);
-    border: 1.5px solid var(--color-gray-200);
+//     &:hover {
+//       background-color: var(--color-gray-700);
+//       background-color: #404040;
+//     }
+//   `,
+//   secondary: css`
+//     background-color: var(--color-gray-0);
+//     border: 1.5px solid var(--color-gray-200);
 
-    &:hover {
-      border: 1.5px solid #000;
-    }
-  `,
-};
+//     &:hover {
+//       border: 1.5px solid #000;
+//     }
+//   `,
+// };
 
-interface IButtonType {
-  type: 'primary' | 'secondary';
-}
+// interface IButtonType {
+//   type: 'primary' | 'secondary';
+// }
 
-const Button = styled.button<IButtonType>`
-  height: 6rem;
-  font-size: 1.75rem;
-  font-weight: 500;
-  border-radius: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+// const Button = styled.button<IButtonType>`
+//   height: 6rem;
+//   font-size: 1.75rem;
+//   font-weight: 500;
+//   border-radius: 100px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
 
-  ${(props) => buttonType[props.type]}
-`;
+//   ${(props) => buttonType[props.type]}
+// `;
 
 function ProductDetails() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -266,8 +268,12 @@ function ProductDetails() {
         </SizeContainer>
 
         <ButtonContainer>
-          <Button type="primary">Add to Bag</Button>
-          <Button type="secondary">Favourite</Button>
+          <Button type="primary" $size="lg">
+            Add to Bag
+          </Button>
+          <Button type="secondary" $size="lg">
+            Favourite
+          </Button>
         </ButtonContainer>
       </Details>
     </StyledProductDetails>

@@ -38,10 +38,13 @@ const NavMisc = styled.div`
   justify-content: space-between;
 `;
 
-const NavMiscButton = styled(Button)`
+const NavMiscButton = styled(NavLink)`
   height: 4rem;
   width: 4rem;
   border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & svg {
     height: 2.5rem;
@@ -91,10 +94,10 @@ function Nav() {
       <NavMisc>
         <Search type="text" placeholder="Search" />
 
-        <NavMiscButton>
+        <NavMiscButton to="/">
           <HiOutlineHeart />
         </NavMiscButton>
-        <NavMiscButton>
+        <NavMiscButton to="/cart">
           <HiOutlineShoppingBag />
         </NavMiscButton>
       </NavMisc>
