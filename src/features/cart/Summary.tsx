@@ -50,11 +50,12 @@ function Summary() {
         Subtotal <ItemPrice>${subTotal}</ItemPrice>
       </SubTotal>
       <SubTotal>
-        Estimated Delivery & Handling <ItemPrice>${MISC_FEE}</ItemPrice>
+        Estimated Delivery & Handling{' '}
+        <ItemPrice>${cartItems.length ? MISC_FEE : 0}</ItemPrice>
       </SubTotal>
 
       <Total>
-        Total <ItemPrice>${totalPrice}</ItemPrice>
+        Total <ItemPrice>${cartItems.length ? totalPrice : 0}</ItemPrice>
       </Total>
 
       <Button type="primary" $size="lg" onClick={handleCheckout}>

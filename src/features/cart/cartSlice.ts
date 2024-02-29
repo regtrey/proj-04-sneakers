@@ -62,7 +62,10 @@ const cartSlice = createSlice({
       state.cartItems.push(action.payload);
     },
     deleteCartItem: (state, action) => {
-      state.cartItems.filter((item) => item !== action.payload);
+      // ex. payload: {id: 1}
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
     },
     updateItemQuantity: (state, action) => {
       // ex. payload: {id: 1, quantity: 2}

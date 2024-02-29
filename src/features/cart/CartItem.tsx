@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ICartItems, updateItemQuantity } from './cartSlice';
+import { ICartItems, deleteCartItem, updateItemQuantity } from './cartSlice';
 import { HiOutlineHeart, HiOutlineTrash } from 'react-icons/hi2';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -135,6 +135,10 @@ function CartItem({ item }: ICartItemProps) {
     }
   };
 
+  const handleDelete = () => {
+    dispatch(deleteCartItem({ id }));
+  };
+
   return (
     <StyledCartItem>
       <ItemImage
@@ -177,7 +181,7 @@ function CartItem({ item }: ICartItemProps) {
             <HiOutlineHeart />
           </ActionButton>
 
-          <ActionButton>
+          <ActionButton onClick={handleDelete}>
             <HiOutlineTrash />
           </ActionButton>
         </ActionContainer>
