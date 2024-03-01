@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
 
 export interface ICartItems {
   id: number;
   name: string;
   category: string;
   slug: string;
+  categorySlug: string;
   color: string;
   sizes: string[];
   selectedSize: number;
@@ -29,6 +29,7 @@ const initialState: ICartState = {
       name: 'Air Jordan 1 Low SE',
       category: 'men',
       slug: 'air-jordan-1-low-se',
+      categorySlug: 'mens',
       color: 'White/Black/Sail/Blue Grey',
       sizes: [
         'US 7',
@@ -62,6 +63,7 @@ const initialState: ICartState = {
       name: 'Air Jordan 1 Low SE',
       category: 'men',
       slug: 'air-jordan-1-low-se',
+      categorySlug: 'mens',
       color: 'White/Black/Sail/Blue Grey',
       sizes: [
         'US 7',

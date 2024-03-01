@@ -24,6 +24,7 @@ export type Database = {
           tag: string;
           placeholder: string[];
           slug: string;
+          categorySlug: string;
         };
         Insert: {
           alt?: string;
@@ -39,6 +40,7 @@ export type Database = {
           tag?: string;
           placeholder?: string[];
           slug?: string;
+          categorySlug?: string;
         };
         Update: {
           alt?: string;
@@ -54,6 +56,7 @@ export type Database = {
           tag?: string;
           placeholder?: string[];
           slug?: string;
+          categorySlug?: string;
         };
         Relationships: [];
       };

@@ -73,7 +73,7 @@ function Favourites() {
       <FavouritesContainer>
         {favouriteItems.map((item) => (
           <Product key={item.id}>
-            <Link to={`/${item.category}s/${item.slug}`}>
+            <Link to={`/${item.categorySlug}/${item.slug}`}>
               <ProductImage
                 src={item.image}
                 alt={item.alt}
@@ -83,7 +83,9 @@ function Favourites() {
             </Link>
             <ProductDetails>
               <Details>
-                <Link to={`/${item.category}s/${item.slug}`}>{item.name}</Link>{' '}
+                <Link to={`/${item.categorySlug}/${item.slug}`}>
+                  {item.name}
+                </Link>{' '}
                 <span>{item.category}'s shoes</span>
               </Details>
               <ProductPrice>${item.price}</ProductPrice>

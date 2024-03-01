@@ -10,4 +10,6 @@ export interface IProduct {
   image: string[];
   alt: string;
   placeholder: string[];
+  slug: string;
+  categorySlug: string;
 }

@@ -109,6 +109,7 @@ function CartItem({ item }: ICartItemProps) {
     name,
     category,
     slug,
+    categorySlug,
     color,
     sizes,
     selectedSize,
@@ -145,7 +146,7 @@ function CartItem({ item }: ICartItemProps) {
 
   return (
     <StyledCartItem>
-      <Link to={`/${category}s/${slug}`}>
+      <Link to={`/${categorySlug}/${slug}`}>
         <ItemImage
           src={image}
           alt={alt}

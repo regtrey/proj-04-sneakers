@@ -174,8 +174,19 @@ function ProductDetails() {
   if (isLoading) return 'Loading...';
   if (!shoe || error) return 'Error...';
 
-  const { id, name, category, colors, sizes, price, image, alt, placeholder } =
-    shoe[0];
+  const {
+    id,
+    name,
+    category,
+    colors,
+    sizes,
+    price,
+    image,
+    alt,
+    placeholder,
+    slug,
+    categorySlug,
+  } = shoe[0];
 
   const handleSelect = (
     e: React.MouseEvent<HTMLInputElement>,
@@ -189,12 +200,12 @@ function ProductDetails() {
   const handleAddItem = (field: string) => {
     if (!currentSelectedSize) return;
 
-    const itemSlug = name.toLowerCase().split(' ').join('-');
     const itemObj = {
       id,
       name,
       category,
-      slug: itemSlug,
+      slug,
+      categorySlug,
       color: colors[currentSelectedStyle - 1],
       sizes,
       selectedSize: currentSelectedSize,
