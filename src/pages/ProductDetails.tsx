@@ -1,9 +1,14 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { HiOutlineHeart, HiHeart } from 'react-icons/hi2';
 import { useShoe } from '../features/useShoe';
 import { useAppDispatch } from '../store';
-import { addCartItem } from '../features/cart/cartSlice';
+import {
+  addCartItem,
+  addFavouriteItem,
+  deleteFavouriteItem,
+} from '../features/cart/cartSlice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -148,11 +153,16 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  & svg {
+    margin-left: 0.5rem;
+  }
 `;
 
 function ProductDetails() {
-  const navigate = useNavigate();
+  const [isFav, setIsFav] = useState(false);
 
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { isLoading, shoe, error } = useShoe();
 
@@ -176,24 +186,41 @@ function ProductDetails() {
     setSearchParams(searchParams);
   };
 
-  const handleAddToBag = () => {
-    dispatch(
-      addCartItem({
-        id,
-        name,
-        category,
-        color: colors[currentSelectedStyle - 1],
-        sizes,
-        selectedSize: currentSelectedSize,
-        image: image[currentSelectedStyle - 1],
-        alt,
-        placeholder,
-        price,
-        quantity: 1,
-        total: price,
-      })
-    );
-    navigate('/cart');
+  const handleAddItem = (field: string) => {
+    if (!currentSelectedSize) return;
+
+    const itemSlug = name.toLowerCase().split(' ').join('-');
+    const itemObj = {
+      id,
+      name,
+      category,
+      slug: itemSlug,
+      color: colors[currentSelectedStyle - 1],
+      sizes,
+      selectedSize: currentSelectedSize,
+      image: image[currentSelectedStyle - 1],
+      alt,
+      placeholder,
+      price,
+      quantity: 1,
+      total: price,
+      isFavourite: isFav,
+    };
+
+    if (field === 'cart') {
+      dispatch(addCartItem(itemObj));
+      navigate('/cart');
+    }
+
+    if (field === 'favourite' && !isFav) {
+      dispatch(addFavouriteItem(itemObj));
+      setIsFav(true);
+    }
+
+    if (field === 'favourite' && isFav) {
+      dispatch(deleteFavouriteItem({ id }));
+      setIsFav(false);
+    }
   };
 
   return (
@@ -254,11 +281,19 @@ function ProductDetails() {
         </SizeContainer>
 
         <ButtonContainer>
-          <Button type="primary" $size="lg" onClick={handleAddToBag}>
+          <Button
+            type="primary"
+            $size="lg"
+            onClick={() => handleAddItem('cart')}
+          >
             Add to Bag
           </Button>
-          <Button type="secondary" $size="lg">
-            Favourite
+          <Button
+            type="secondary"
+            $size="lg"
+            onClick={() => handleAddItem('favourite')}
+          >
+            Favourite {isFav ? <HiHeart /> : <HiOutlineHeart />}
           </Button>
         </ButtonContainer>
       </Details>

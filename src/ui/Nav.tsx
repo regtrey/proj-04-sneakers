@@ -92,7 +92,7 @@ function Nav() {
       <NavMisc>
         <Search type="text" placeholder="Search" />
 
-        <NavMiscButton to="/">
+        <NavMiscButton to="/favourites">
           <HiOutlineHeart />
         </NavMiscButton>
         <NavMiscButton to="/cart">

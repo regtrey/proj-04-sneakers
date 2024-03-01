@@ -20,7 +20,7 @@ function MensProducts() {
         ? 'Loading...'
         : shoes
         ? shoes.map((shoes) => (
-            <Link key={shoes.id} to={`/mens/${shoes.id}`}>
+            <Link key={shoes.id} to={`/mens/${shoes.slug}`}>
               <Product product={shoes} />
             </Link>
           ))

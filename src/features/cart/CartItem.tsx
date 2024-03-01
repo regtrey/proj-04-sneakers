@@ -5,6 +5,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../store';
+import { Link } from 'react-router-dom';
 
 const StyledCartItem = styled.div`
   height: max-content;
@@ -45,6 +46,7 @@ const Details = styled.span`
   font-size: 1.6rem;
   color: var(--color-gray-500);
   display: block;
+  text-transform: capitalize;
 `;
 
 const SelectLabel = styled.label`
@@ -106,6 +108,7 @@ function CartItem({ item }: ICartItemProps) {
     id,
     name,
     category,
+    slug,
     color,
     sizes,
     selectedSize,
@@ -142,12 +145,14 @@ function CartItem({ item }: ICartItemProps) {
 
   return (
     <StyledCartItem>
-      <ItemImage
-        src={image}
-        alt={alt}
-        placeholderSrc={placeholder}
-        effect="blur"
-      />
+      <Link to={`/${category}s/${slug}`}>
+        <ItemImage
+          src={image}
+          alt={alt}
+          placeholderSrc={placeholder}
+          effect="blur"
+        />
+      </Link>
 
       <ItemDetailsContainer>
         <DetailsContainer>

@@ -6,6 +6,7 @@ import Layout from './ui/Layout';
 import Home from './pages/Home';
 import Mens from './pages/Mens';
 import ProductDetails from './pages/ProductDetails';
+import Favourites from './pages/Favourites';
 import Cart from './pages/Cart';
 import GlobalStyles from './styles/GlobalStyles';
 
@@ -31,7 +32,8 @@ function App() {
           <Route index element={<Navigate to="home" replace />} />
           <Route path="home" element={<Home />} />
           <Route path="mens" element={<Mens />} />
-          <Route path="mens/:id" element={<ProductDetails />} />
+          <Route path="mens/:slugId" element={<ProductDetails />} />
+          <Route path="favourites" element={<Favourites />} />
           <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>

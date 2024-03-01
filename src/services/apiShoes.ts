@@ -11,8 +11,11 @@ export async function getShoes() {
   return data;
 }
 
-export async function getShoe(id: string) {
-  const { data, error } = await supabase.from('shoes').select('*').eq('id', id);
+export async function getShoe(slugId: string) {
+  const { data, error } = await supabase
+    .from('shoes')
+    .select('*')
+    .eq('slug', slugId);
 
   if (error) {
     console.error(error);
