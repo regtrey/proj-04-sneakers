@@ -21,6 +21,7 @@ const ItemImage = styled(LazyLoadImage)`
   object-position: center;
   object-fit: cover;
   display: block;
+  margin-right: 1rem;
   background-color: var(--color-gray-300);
 `;
 

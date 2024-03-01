@@ -4,7 +4,7 @@ import { useAppSelector } from '../../store';
 
 const StyledCartBag = styled.div`
   height: 72rem;
-  width: 35vw;
+  width: 40vw;
   overflow-y: scroll;
   position: relative;
 `;

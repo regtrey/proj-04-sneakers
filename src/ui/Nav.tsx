@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { HiOutlineHeart, HiOutlineShoppingBag } from 'react-icons/hi2';
 
-import { Button } from './Button';
-
 const StyledNav = styled.nav`
   width: 60vw;
   display: flex;
@@ -32,7 +30,7 @@ const NavigationLink = styled.li`
 `;
 
 const NavMisc = styled.div`
-  width: 30%;
+  width: 35%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,7 +71,7 @@ interface HeaderLink {
 }
 
 const links: HeaderLink[] = [
-  { field: 'New & Featured', url: '/new-and-featured' },
+  // { field: 'New & Featured', url: '/new-and-featured' },
   { field: 'Men', url: '/mens' },
   { field: 'Women', url: '/womens' },
   { field: 'Kids', url: '/kids' },

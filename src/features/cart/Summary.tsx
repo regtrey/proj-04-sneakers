@@ -47,7 +47,7 @@ function Summary() {
     <StyledSummary>
       <Heading>Summary</Heading>
       <SubTotal>
-        Subtotal <ItemPrice>${subTotal}</ItemPrice>
+        Subtotal <ItemPrice>${cartItems.length ? subTotal : 0}</ItemPrice>
       </SubTotal>
       <SubTotal>
         Estimated Delivery & Handling{' '}
