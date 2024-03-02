@@ -71,7 +71,7 @@ interface HeaderLink {
 }
 
 const links: HeaderLink[] = [
-  // { field: 'New & Featured', url: '/new-and-featured' },
+  { field: 'New & Featured', url: '/new-and-featured' },
   { field: 'Men', url: '/mens' },
   { field: 'Women', url: '/womens' },
   { field: 'Kids', url: '/kids' },

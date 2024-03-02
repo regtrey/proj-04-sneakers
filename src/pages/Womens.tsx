@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Products from '../ui/Products';
 
-const StyledMens = styled.div`
+const StyledWomens = styled.div`
   padding: 6rem 4rem;
 `;
 
@@ -24,17 +24,17 @@ const Refinements = styled.aside`
   grid-column: 1 / 2;
 `;
 
-function Mens() {
+function Womens() {
   return (
-    <StyledMens>
-      <Heading>Men's shoes</Heading>
+    <StyledWomens>
+      <Heading>Women's shoes</Heading>
 
       <Layout>
         <Refinements>REFINEMENTS</Refinements>
         <Products />
       </Layout>
-    </StyledMens>
+    </StyledWomens>
   );
 }
 
-export default Mens;
+export default Womens;

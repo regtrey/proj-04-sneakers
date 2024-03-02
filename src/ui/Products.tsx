@@ -1,21 +1,24 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-import Product from '../../../ui/Product';
-import { useShoes } from '../../useShoes';
+import Product from './Product';
+import { useShoes } from '../features/useShoes';
 
-const StyledMensProducts = styled.div`
+const StyledProducts = styled.div`
   height: max-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 `;
 
-function MensProducts() {
-  const { isLoading, shoes, error } = useShoes();
+function Products() {
+  const location = useLocation();
+  const currentPath = location.pathname.replace('/', '');
+
+  const { isLoading, shoes, error } = useShoes(currentPath);
 
   return (
-    <StyledMensProducts>
+    <StyledProducts>
       {isLoading
         ? 'Loading...'
         : shoes
@@ -25,8 +28,8 @@ function MensProducts() {
             </Link>
           ))
         : `${error}`}
-    </StyledMensProducts>
+    </StyledProducts>
   );
 }
 
-export default MensProducts;
+export default Products;

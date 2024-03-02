@@ -10,7 +10,9 @@ const StyledProduct = styled.div`
 `;
 
 const ProductImage = styled(LazyLoadImage)`
+  height: 36rem;
   width: 100%;
+  object-fit: contain;
   display: block;
 `;
 

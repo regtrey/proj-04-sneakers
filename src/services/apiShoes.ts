@@ -1,7 +1,18 @@
 import supabase from './supabase';
 
-export async function getShoes() {
-  const { data, error } = await supabase.from('shoes').select('*');
+export async function getShoes(currentPath: string) {
+  let data, error;
+
+  if (currentPath === 'new-and-featured') {
+    ({ data, error } = await supabase.from('shoes').select('*'));
+  }
+
+  if (currentPath === 'mens' || currentPath === 'womens') {
+    ({ data, error } = await supabase
+      .from('shoes')
+      .select('*')
+      .eq('categorySlug', currentPath));
+  }
 
   if (error) {
     console.error(error);
