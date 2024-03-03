@@ -12,4 +12,5 @@ export interface IProduct {
   placeholder: string[];
   slug: string;
   categorySlug: string;
+  uuid: string;
 }
