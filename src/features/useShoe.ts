@@ -1,17 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
 import { getShoe } from '../services/apiShoes';
 
-export function useShoe() {
-  const { slugId } = useParams();
+export function useShoe(currentPath: string[]) {
+  const [curCategory, curSlugId] = currentPath;
 
   const {
     isLoading,
     data: shoe,
     error,
   } = useQuery({
-    queryKey: ['shoes', slugId],
-    queryFn: () => getShoe(slugId),
+    queryKey: ['shoes', curSlugId],
+    queryFn: () => getShoe(curCategory, curSlugId),
   });
 
   return { isLoading, shoe, error };

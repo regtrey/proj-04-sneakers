@@ -8,7 +8,11 @@ export async function getShoes(currentPath: string) {
     ({ data, error } = await supabase.from('shoes').select('*').order('uuid'));
   }
 
-  if (currentPath === 'mens' || currentPath === 'womens') {
+  if (
+    currentPath === 'mens' ||
+    currentPath === 'womens' ||
+    currentPath === 'kids'
+  ) {
     ({ data, error } = await supabase
       .from('shoes')
       .select('*')
@@ -23,11 +27,13 @@ export async function getShoes(currentPath: string) {
   return data;
 }
 
-export async function getShoe(slugId: string) {
+export async function getShoe(currentPath: string, curSlugId: string) {
+  // Fetching the product from its category to avoid fetching the same product from different category
   const { data, error } = await supabase
     .from('shoes')
     .select('*')
-    .eq('slug', slugId);
+    .match({ categorySlug: currentPath, slug: curSlugId })
+    .single();
 
   if (error) {
     console.error(error);

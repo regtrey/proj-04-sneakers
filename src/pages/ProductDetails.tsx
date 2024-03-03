@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi2';
 import { useShoe } from '../features/useShoe';
 import { useAppDispatch } from '../store';
@@ -162,9 +162,12 @@ const ButtonContainer = styled.div`
 function ProductDetails() {
   const [isFav, setIsFav] = useState(false);
 
+  const location = useLocation();
+  const currentPath = location.pathname.replace('/', '').split('/');
+
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { isLoading, shoe, error } = useShoe();
+  const { isLoading, shoe, error } = useShoe(currentPath);
 
   const dispatch = useAppDispatch();
 
@@ -186,7 +189,7 @@ function ProductDetails() {
     placeholder,
     slug,
     categorySlug,
-  } = shoe[0];
+  } = shoe;
 
   const handleSelect = (
     e: React.MouseEvent<HTMLInputElement>,

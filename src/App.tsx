@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import NewFeatured from './pages/NewFeatured';
 import Mens from './pages/Mens';
 import Womens from './pages/Womens';
+import Kids from './pages/Kids';
 import ProductDetails from './pages/ProductDetails';
 import Favourites from './pages/Favourites';
 import Cart from './pages/Cart';
@@ -38,6 +39,8 @@ function App() {
           <Route path="mens/:slugId" element={<ProductDetails />} />
           <Route path="womens" element={<Womens />} />
           <Route path="womens/:slugId" element={<ProductDetails />} />
+          <Route path="kids" element={<Kids />} />
+          <Route path="kids/:slugId" element={<ProductDetails />} />
           <Route path="favourites" element={<Favourites />} />
           <Route path="cart" element={<Cart />} />
         </Route>

@@ -64,7 +64,8 @@ function Product({ product }: IProductProps) {
         <Tag>{tag}</Tag>
         <Name>{name}</Name>
         <ShoeCategory>
-          {category}'s Shoes <br />
+          {category}
+          {category === 'kids' ? "'" : "'s"} Shoes <br />
           {colors.length} {colors.length > 1 ? 'Colours' : 'Colour'}
         </ShoeCategory>
         <Price>${price}</Price>
