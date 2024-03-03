@@ -4,7 +4,8 @@ export async function getShoes(currentPath: string) {
   let data, error;
 
   if (currentPath === 'new-and-featured') {
-    ({ data, error } = await supabase.from('shoes').select('*'));
+    // Sort all by uuid
+    ({ data, error } = await supabase.from('shoes').select('*').order('uuid'));
   }
 
   if (currentPath === 'mens' || currentPath === 'womens') {
