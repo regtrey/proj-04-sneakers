@@ -48,10 +48,10 @@ const initialState: ICartState = {
       ],
       selectedSize: 9.5,
       image:
-        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-01.png',
+        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/mens/nike/air-jordan-1-low-se-01.png',
       alt: 'Air Jordan 1 Low SE',
       placeholder:
-        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-placeholder-01.jpg',
+        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/mens/nike/air-jordan-1-low-se-placeholder-01.jpg',
       price: 145,
       quantity: 1,
       total: 145,
@@ -82,10 +82,10 @@ const initialState: ICartState = {
       ],
       selectedSize: 9.5,
       image:
-        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-01.png',
+        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/mens/nike/air-jordan-1-low-se-01.png',
       alt: 'Air Jordan 1 Low SE',
       placeholder:
-        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/air-jordan-1-low-se-placeholder-01.jpg',
+        'https://sqvelnvvyapcyvkpuimq.supabase.co/storage/v1/object/public/shoe-images/mens/nike/air-jordan-1-low-se-placeholder-01.jpg',
       price: 145,
       quantity: 1,
       total: 145,

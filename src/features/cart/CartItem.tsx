@@ -158,7 +158,10 @@ function CartItem({ item }: ICartItemProps) {
       <ItemDetailsContainer>
         <DetailsContainer>
           <ItemName>{name}</ItemName>
-          <Details>{category}'s Shoes</Details>
+          <Details>
+            {category}
+            {category === 'kids' ? "'" : "'s"} Shoes
+          </Details>
           <Details>{color}</Details>
 
           <SelectLabel>Size</SelectLabel>
