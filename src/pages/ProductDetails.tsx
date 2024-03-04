@@ -296,14 +296,14 @@ function ProductDetails() {
 
         <ButtonContainer>
           <Button
-            type="primary"
+            $variant="primary"
             $size="lg"
             onClick={() => handleAddItem('cart')}
           >
             Add to Bag
           </Button>
           <Button
-            type="secondary"
+            $variant="secondary"
             $size="lg"
             onClick={() => handleAddItem('favourite')}
           >

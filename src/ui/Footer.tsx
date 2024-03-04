@@ -4,7 +4,7 @@ const StyledFooter = styled.footer`
   padding: 2rem 4rem;
   background-color: #111111;
 
-  grid-row: 3 / 4;
+  grid-row: 4 / 5;
 `;
 
 function Footer() {

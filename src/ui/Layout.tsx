@@ -7,13 +7,13 @@ import Footer from './Footer';
 const StyledLayout = styled.div`
   height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr 20rem;
+  grid-template-rows: auto auto 1fr 20rem;
 `;
 
 const Main = styled.main`
   height: 100%;
 
-  grid-row: 2 / 3;
+  grid-row: 3 / 4;
 `;
 
 function Layout() {

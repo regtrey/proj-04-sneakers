@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { useAppSelector } from '../../store';
+
 import { ItemPrice } from './CartItem';
 import { Button } from '../../ui/Button';
-import { useAppSelector } from '../../store';
 
 const StyledSummary = styled.div`
   height: max-content;
@@ -58,7 +59,7 @@ function Summary() {
         Total <ItemPrice>${cartItems.length ? totalPrice : 0}</ItemPrice>
       </Total>
 
-      <Button type="primary" $size="lg" onClick={handleCheckout}>
+      <Button $variant="primary" $size="lg" onClick={handleCheckout}>
         Checkout
       </Button>
     </StyledSummary>

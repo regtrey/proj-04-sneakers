@@ -1,13 +1,12 @@
 import styled, { css } from 'styled-components';
 
-const type = {
+const variant = {
   primary: css`
     background-color: #000;
     border: none;
     color: var(--color-gray-0);
 
     &:hover {
-      background-color: var(--color-gray-700);
       background-color: #404040;
     }
   `,
@@ -22,6 +21,11 @@ const type = {
 };
 
 const size = {
+  md: css`
+    height: 5rem;
+    font-size: 1.5rem;
+    border-radius: 100px;
+  `,
   lg: css`
     height: 6rem;
     font-size: 1.75rem;
@@ -30,8 +34,9 @@ const size = {
 };
 
 interface IButton {
-  type: 'primary' | 'secondary';
-  $size: 'lg';
+  $variant: 'primary' | 'secondary';
+  $size: 'md' | 'lg';
+  $custom?: string;
 }
 
 export const Button = styled.button<IButton>`
@@ -42,6 +47,11 @@ export const Button = styled.button<IButton>`
   justify-content: center;
   cursor: pointer;
 
-  ${(props) => type[props.type]}
+  &:disabled {
+    background-color: #404040;
+  }
+
+  ${(props) => variant[props.$variant]}
   ${(props) => size[props.$size]}
+  ${(props) => props.$custom}
 `;

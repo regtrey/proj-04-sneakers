@@ -11,6 +11,7 @@ import Kids from './pages/Kids';
 import ProductDetails from './pages/ProductDetails';
 import Favourites from './pages/Favourites';
 import Cart from './pages/Cart';
+import Auth from './pages/Auth';
 import GlobalStyles from './styles/GlobalStyles';
 
 // Setting up react query
@@ -44,6 +45,8 @@ function App() {
           <Route path="favourites" element={<Favourites />} />
           <Route path="cart" element={<Cart />} />
         </Route>
+        <Route path="signin" element={<Auth />} />
+        <Route path="signup" element={<Auth />} />
       </Routes>
     </QueryClientProvider>
   );
