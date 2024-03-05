@@ -60,7 +60,7 @@ const cartSlice = createSlice({
     deleteFavouriteItem: (state, action) => {
       // ex. payload: {id: 1}
       state.favouriteItems = state.favouriteItems.filter(
-        (item) => item.shoe_id !== action.payload.id
+        (item) => item.shoe_id !== action.payload.shoe_id
       );
     },
   },

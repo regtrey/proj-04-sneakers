@@ -42,8 +42,8 @@ const MISC_FEE = 5;
 function Summary() {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
 
-  const { userId, isAuthenticated, userLoading } = useUser();
-  const { data, userCartLoading } = useCart(userId);
+  const { userId } = useUser();
+  const { data } = useCart(userId);
 
   const items = data ? data : cartItems;
 

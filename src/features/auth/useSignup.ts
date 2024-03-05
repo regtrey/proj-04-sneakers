@@ -9,7 +9,7 @@ export function useSignup() {
   const { mutate: signup, isLoading: signupLoading } = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       userSignup({ email, password }),
-    onSuccess: (user) => {
+    onSuccess: () => {
       navigate('/');
     },
     onError: () => {

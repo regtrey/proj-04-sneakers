@@ -175,8 +175,8 @@ function ProductDetails() {
 
   const dispatch = useAppDispatch();
 
-  const { userId, isAuthenticated, userLoading } = useUser();
-  const { addItem, addItemLoading } = useAddCartItem();
+  const { userId, isAuthenticated } = useUser();
+  const { addItem } = useAddCartItem();
 
   const currentSelectedStyle = Number(searchParams.get('style')) || 1;
   const currentSelectedSize = Number(searchParams.get('size'));

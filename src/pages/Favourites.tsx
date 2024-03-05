@@ -73,7 +73,7 @@ function Favourites() {
       <Heading>Favourites</Heading>
       <FavouritesContainer>
         {favouriteItems.map((item) => (
-          <Product key={item.id}>
+          <Product key={item.shoe_id}>
             <Link to={`/${item.categorySlug}/${item.slug}`}>
               <ProductImage
                 src={item.image}

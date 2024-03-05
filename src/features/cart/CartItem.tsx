@@ -107,11 +107,8 @@ function CartItem({ item }: ICartItemProps) {
   const [qty, setQty] = useState(0);
 
   const { userId, isAuthenticated } = useUser();
-  const { updateItem, updateItemLoading } = useUpdateCartItem(
-    userId,
-    item.cart_id
-  );
-  const { deleteItem, deleteItemLoading } = useDeleteCartItem(userId);
+  const { updateItem } = useUpdateCartItem(userId, item.cart_id);
+  const { deleteItem } = useDeleteCartItem(userId);
 
   const dispatch = useAppDispatch();
 

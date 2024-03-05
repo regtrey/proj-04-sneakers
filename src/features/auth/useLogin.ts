@@ -9,9 +9,7 @@ export function useLogin() {
   const { mutate: login, isLoading: loginLoading } = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       userLogin({ email, password }),
-    onSuccess: (user) => {
-      console.log(user);
-
+    onSuccess: () => {
       navigate('/');
     },
     onError: () => {
