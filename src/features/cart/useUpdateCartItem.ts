@@ -5,16 +5,19 @@ type UpdateCart = {
   selectedSize?: number;
   quantity?: number;
   total?: number;
+  isFavourite?: boolean;
 };
 
 export function useUpdateCartItem(
   userId: string | undefined,
-  cartId: string | undefined
+  cartId: string | undefined,
+  eqField?: string | undefined
 ) {
   const queryClient = useQueryClient();
 
   const { mutate: updateItem, isLoading: updateItemLoading } = useMutation({
-    mutationFn: (updatedItem: UpdateCart) => updateCart(updatedItem, cartId),
+    mutationFn: (updatedItem: UpdateCart) =>
+      updateCart(updatedItem, cartId, eqField),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart', userId] });
     },

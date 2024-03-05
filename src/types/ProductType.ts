@@ -13,3 +13,25 @@ export interface IProduct {
   slug: string;
   categorySlug: string;
 }
+
+export interface ICart {
+  cart_id?: string;
+  shoe_id?: string;
+  name: string;
+  brand?: string;
+  category: string;
+  tag?: string;
+  slug: string;
+  categorySlug: string;
+  color: string;
+  sizes: string[];
+  selectedSize: number;
+  image: string;
+  alt: string;
+  placeholder: string;
+  price: number;
+  quantity: number;
+  isFavourite: boolean;
+  total?: number;
+  user_id?: string;
+}

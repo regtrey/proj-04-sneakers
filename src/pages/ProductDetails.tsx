@@ -1,22 +1,20 @@
-import styled from 'styled-components';
-import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi2';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-import { useAppDispatch } from '../store';
-import {
-  ICartItems,
-  addCartItem,
-  addFavouriteItem,
-  deleteFavouriteItem,
-} from '../features/cart/cartSlice';
 import { useUser } from '../features/auth/useUser';
 import { useShoe } from '../features/useShoe';
 import { useAddCartItem } from '../features/cart/useAddCartItem';
 
 import { Button } from '../ui/Button';
+import { ICart } from '../types/ProductType';
+// import { useUpdateCartItem } from '../features/cart/useUpdateCartItem';
+import { useFavourite } from '../features/favourites/useFavourite';
+import { useAddFavourite } from '../features/favourites/useAddFavourite';
+import { useDeleteFavourite } from '../features/favourites/useDeleteFavourite';
 
 const StyledProductDetails = styled.div`
   padding: 6rem 0;
@@ -112,13 +110,32 @@ const SizeHeading = styled.h2`
   font-weight: 500;
 `;
 
-const SizeContainer = styled.div`
+const sizeError = {
+  none: css`
+    outline: 1px solid transparent;
+  `,
+  error: css`
+    outline: 1px solid #c11313;
+  `,
+};
+
+interface IError {
+  $sizeSelect?: 'none' | 'error';
+}
+
+const SizeContainer = styled.div<IError>`
   height: max-content;
   width: 38rem;
-  margin: 1rem 0 2rem;
+  border-radius: var(--border-radius-sm);
+  outline-offset: 1px;
+  margin: 1rem 0 4rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  position: relative;
+
+  ${(props) =>
+    props.$sizeSelect === 'none' ? sizeError['none'] : sizeError['error']}
 `;
 
 interface ISizeProps {
@@ -151,6 +168,15 @@ const Size = styled.div<ISizeProps>`
   }
 `;
 
+const SelectSizeSpan = styled.span<IError>`
+  font-size: 1.5rem;
+  color: red;
+  position: absolute;
+  bottom: -3rem;
+
+  display: ${(props) => (props.$sizeSelect === 'none' ? 'none' : 'block')};
+`;
+
 const ButtonContainer = styled.div`
   height: max-content;
   width: 100%;
@@ -165,21 +191,39 @@ const ButtonContainer = styled.div`
 
 function ProductDetails() {
   const [isFav, setIsFav] = useState(false);
+  const [hasSelectedSize, setHasSelectedSize] = useState(true);
 
   const location = useLocation();
   const currentPath = location.pathname.replace('/', '').split('/');
 
   const navigate = useNavigate();
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const { isLoading, shoe, error } = useShoe(currentPath);
-
-  const dispatch = useAppDispatch();
-
   const { userId, isAuthenticated } = useUser();
+  const { shoe, isLoading, error } = useShoe(currentPath);
+  // const { updateItem } = useUpdateCartItem(userId, shoe?.shoe_id, 'shoe_id');
+
+  const { addFavItem } = useAddFavourite();
+  const { deleteFavItem } = useDeleteFavourite(userId, shoe?.shoe_id);
+  const { favItem } = useFavourite(userId, shoe?.shoe_id);
+
   const { addItem } = useAddCartItem();
 
   const currentSelectedStyle = Number(searchParams.get('style')) || 1;
   const currentSelectedSize = Number(searchParams.get('size'));
+
+  const curFavItem = favItem && favItem[0];
+
+  useEffect(() => {
+    if (curFavItem) {
+      setIsFav(curFavItem?.isFavourite);
+      searchParams.set('size', curFavItem?.selectedSize);
+      setSearchParams(searchParams);
+    }
+    if (!curFavItem) {
+      setIsFav(false);
+    }
+  }, [curFavItem, curFavItem?.isFavourite]);
 
   if (isLoading) return 'Loading...';
   if (!shoe || error) return 'Error...';
@@ -200,19 +244,19 @@ function ProductDetails() {
     categorySlug,
   } = shoe;
 
-  const handleSelect = (
-    e: React.MouseEvent<HTMLInputElement>,
-    field: string
-  ) => {
+  const handleSelect = (e: React.MouseEvent, field: string) => {
     const target = e.target as HTMLInputElement;
     searchParams.set(field, target.value);
     setSearchParams(searchParams);
   };
 
   const handleAddItem = (field: string) => {
-    if (!currentSelectedSize) return;
+    if (!currentSelectedSize) {
+      setHasSelectedSize(false);
+      return;
+    }
 
-    const cartItems: ICartItems = {
+    const cartItems: ICart = {
       shoe_id,
       name,
       brand,
@@ -229,27 +273,26 @@ function ProductDetails() {
       price,
       total: price,
       quantity: 1,
-      isFavourite: isFav,
+      isFavourite: true,
       user_id: userId,
     };
 
     if (!isAuthenticated) {
-      if (field === 'cart') {
-        dispatch(addCartItem(cartItems));
-        navigate('/cart');
-      }
-      if (field === 'favourite' && !isFav) {
-        dispatch(addFavouriteItem(cartItems));
-        setIsFav(true);
-      }
-      if (field === 'favourite' && isFav) {
-        dispatch(deleteFavouriteItem({ shoe_id }));
-        setIsFav(false);
-      }
+      navigate('/signin');
     }
 
     if (isAuthenticated) {
-      addItem(cartItems);
+      if (field === 'cart') {
+        addItem(cartItems);
+      }
+      if (field === 'favourite' && isFav) {
+        setIsFav(false);
+        deleteFavItem();
+      }
+      if (field === 'favourite' && !isFav) {
+        setIsFav(true);
+        addFavItem(cartItems);
+      }
     }
   };
 
@@ -290,7 +333,7 @@ function ProductDetails() {
         </Container>
 
         <SizeHeading>Select Size</SizeHeading>
-        <SizeContainer>
+        <SizeContainer $sizeSelect={hasSelectedSize ? 'none' : 'error'}>
           {sizes.map((size, index) => {
             const curSize = size.split(' ')[1];
             return (
@@ -302,12 +345,18 @@ function ProductDetails() {
                   id={curSize}
                   type="radio"
                   value={curSize}
-                  onClick={(e) => handleSelect(e, 'size')}
+                  onClick={(e) => {
+                    setHasSelectedSize(true);
+                    handleSelect(e, 'size');
+                  }}
                 />
                 {size}
               </Size>
             );
           })}
+          <SelectSizeSpan $sizeSelect={hasSelectedSize ? 'none' : 'error'}>
+            Please select a size.
+          </SelectSizeSpan>
         </SizeContainer>
 
         <ButtonContainer>

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Nav from './Nav';
+import { useUser } from '../features/auth/useUser';
 
 const StyledHeader = styled.header`
   padding: 0.5rem 4rem;
@@ -35,12 +36,20 @@ const AccountLink = styled(Link)`
 `;
 
 function Header() {
+  const { user, isAuthenticated } = useUser();
+
   return (
     <>
       <AccountNav>
-        <AccountLink to="/signin">Sign In</AccountLink>
-        <span>|</span>
-        <AccountLink to="/signup">Sign Up</AccountLink>
+        {!isAuthenticated ? (
+          <>
+            <AccountLink to="/signin">Sign In</AccountLink>
+            <span>|</span>
+            <AccountLink to="/signup">Sign Up</AccountLink>{' '}
+          </>
+        ) : (
+          `${user?.email}`
+        )}
       </AccountNav>
       <StyledHeader>
         <Link to="/">

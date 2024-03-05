@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-import { useAppSelector } from '../store';
+import { useUser } from '../features/auth/useUser';
+import { useFavourites } from '../features/favourites/useFavourites';
 
 const StyledFavourites = styled.div`
   padding: 6rem 4rem;
@@ -66,13 +67,14 @@ const ProductPrice = styled.span`
 `;
 
 function Favourites() {
-  const favouriteItems = useAppSelector((state) => state.cart.favouriteItems);
+  const { userId } = useUser();
+  const { favouriteItems } = useFavourites(userId);
 
   return (
     <StyledFavourites>
       <Heading>Favourites</Heading>
       <FavouritesContainer>
-        {favouriteItems.map((item) => (
+        {favouriteItems?.map((item) => (
           <Product key={item.shoe_id}>
             <Link to={`/${item.categorySlug}/${item.slug}`}>
               <ProductImage

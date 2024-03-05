@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-import { useAppSelector } from '../../store';
-import { useCart } from './useCart';
 import { useUser } from '../auth/useUser';
+import { useCart } from './useCart';
 
 import CartItem from './CartItem';
 
@@ -19,19 +18,17 @@ const Heading = styled.h1`
 `;
 
 function CartBag() {
-  const cartItems = useAppSelector((state) => state.cart.cartItems);
-
   const { userId } = useUser();
-  const { data } = useCart(userId);
+  const { cartItems } = useCart(userId);
 
-  const items = data ? data : cartItems;
+  if (!userId || !cartItems) return null;
 
   return (
     <StyledCartBag>
       <Heading>Bag</Heading>
-      {items.map((item, i) => (
-        <CartItem key={i} item={item} />
-      ))}
+      {cartItems
+        ? cartItems.map((item, i) => <CartItem key={i} item={item} />)
+        : null}
     </StyledCartBag>
   );
 }

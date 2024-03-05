@@ -1,5 +1,5 @@
 import supabase from './supabase';
-import { ICartItems } from '../features/cart/cartSlice';
+import { ICart } from '../types/ProductType';
 
 export async function getCart(userId: string | undefined) {
   if (!userId) return null;
@@ -14,7 +14,7 @@ export async function getCart(userId: string | undefined) {
   return data;
 }
 
-export async function addCart(cartItems: ICartItems) {
+export async function addCart(cartItems: ICart) {
   const { error } = await supabase.from('cart').insert(cartItems);
 
   if (error) throw new Error(error.message);
@@ -24,21 +24,21 @@ type UpdateCart = {
   selectedSize?: number;
   quantity?: number;
   total?: number;
+  isFavourite?: boolean;
 };
 
 export async function updateCart(
   updatedItem: UpdateCart,
-  cartId: string | undefined
+  cartId: string | undefined,
+  eqField?: string | undefined
 ) {
   const { data, error } = await supabase
     .from('cart')
     .update(updatedItem)
-    .eq('cart_id', cartId)
+    .eq(!eqField ? 'cart_id' : eqField, cartId)
     .select();
 
   if (error) throw new Error(error.message);
-
-  console.log('hello', data, cartId);
 
   return data;
 }

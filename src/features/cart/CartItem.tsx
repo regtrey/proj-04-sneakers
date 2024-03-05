@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { HiOutlineHeart, HiOutlineTrash } from 'react-icons/hi2';
+import { HiHeart, HiOutlineHeart, HiOutlineTrash } from 'react-icons/hi2';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-import { useAppDispatch } from '../../store';
-import { ICartItems, deleteCartItem, updateItemQuantity } from './cartSlice';
 import { useUser } from '../auth/useUser';
 import { useUpdateCartItem } from './useUpdateCartItem';
 import { useDeleteCartItem } from './useDeleteCartItem';
+import { ICart } from '../../types/ProductType';
+import { useAddFavourite } from '../favourites/useAddFavourite';
+import { useDeleteFavourite } from '../favourites/useDeleteFavourite';
+import { useFavourite } from '../favourites/useFavourite';
 
 const StyledCartItem = styled.div`
   height: max-content;
@@ -97,7 +99,7 @@ const ActionButton = styled.button`
 `;
 
 interface ICartItemProps {
-  item: ICartItems;
+  item: ICart;
 }
 
 const quantityNumber = new Array(10).fill('number');
@@ -105,18 +107,15 @@ const quantityNumber = new Array(10).fill('number');
 function CartItem({ item }: ICartItemProps) {
   const [size, setSize] = useState(0);
   const [qty, setQty] = useState(0);
-
-  const { userId, isAuthenticated } = useUser();
-  const { updateItem } = useUpdateCartItem(userId, item.cart_id);
-  const { deleteItem } = useDeleteCartItem(userId);
-
-  const dispatch = useAppDispatch();
+  const [isFav, setIsFav] = useState(false);
 
   const {
-    cart_id,
     shoe_id,
+    cart_id,
     name,
+    brand,
     category,
+    tag,
     slug,
     categorySlug,
     color,
@@ -130,10 +129,27 @@ function CartItem({ item }: ICartItemProps) {
     total,
   } = item;
 
+  const { userId, isAuthenticated } = useUser();
+  const { updateItem } = useUpdateCartItem(userId, item.cart_id);
+  const { deleteItem } = useDeleteCartItem(userId);
+
+  const { favItem } = useFavourite(userId, shoe_id);
+  const { addFavItem } = useAddFavourite();
+  const { deleteFavItem } = useDeleteFavourite(userId, shoe_id);
+
+  const curFavItem = favItem && favItem[0];
+
   useEffect(() => {
     setSize(selectedSize);
     setQty(quantity);
-  }, []);
+
+    if (curFavItem) {
+      setIsFav(curFavItem?.isFavourite);
+    }
+    if (!curFavItem) {
+      setIsFav(false);
+    }
+  }, [curFavItem, curFavItem?.isFavourite]);
 
   const handleSelect = (
     e: React.ChangeEvent<HTMLSelectElement>,
@@ -147,9 +163,6 @@ function CartItem({ item }: ICartItemProps) {
       }
       if (field === 'qty') {
         setQty(Number(target.value));
-        dispatch(
-          updateItemQuantity({ id: shoe_id, quantity: Number(target.value) })
-        );
       }
     }
 
@@ -175,10 +188,41 @@ function CartItem({ item }: ICartItemProps) {
     }
   };
 
-  const handleDelete = () => {
-    if (!isAuthenticated) {
-      dispatch(deleteCartItem({ shoe_id }));
+  const handleAddFav = () => {
+    const cartItems: ICart = {
+      shoe_id,
+      name,
+      brand,
+      category,
+      tag,
+      slug,
+      categorySlug,
+      color,
+      sizes,
+      selectedSize,
+      image,
+      alt,
+      placeholder,
+      price,
+      total: price,
+      quantity: 1,
+      isFavourite: true,
+      user_id: userId,
+    };
+
+    if (isAuthenticated) {
+      if (!isFav) {
+        addFavItem(cartItems);
+        setIsFav(true);
+      }
+      if (isFav) {
+        deleteFavItem();
+        setIsFav(false);
+      }
     }
+  };
+
+  const handleDelete = () => {
     if (isAuthenticated) {
       deleteItem(cart_id);
     }
@@ -227,8 +271,8 @@ function CartItem({ item }: ICartItemProps) {
         </DetailsContainer>
 
         <ActionContainer>
-          <ActionButton>
-            <HiOutlineHeart />
+          <ActionButton onClick={handleAddFav}>
+            {isFav ? <HiHeart /> : <HiOutlineHeart />}
           </ActionButton>
 
           <ActionButton onClick={handleDelete}>

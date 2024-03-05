@@ -8,6 +8,7 @@ export function useUser() {
   });
 
   return {
+    user,
     userId: user?.id,
     isAuthenticated: user?.role === 'authenticated',
     userLoading,
