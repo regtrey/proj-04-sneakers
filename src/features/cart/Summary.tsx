@@ -1,5 +1,8 @@
 import styled from 'styled-components';
+
 import { useAppSelector } from '../../store';
+import { useUser } from '../auth/useUser';
+import { useCart } from './useCart';
 
 import { ItemPrice } from './CartItem';
 import { Button } from '../../ui/Button';
@@ -39,7 +42,12 @@ const MISC_FEE = 5;
 function Summary() {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
 
-  const subTotal = cartItems.reduce((acc, cur) => acc + cur.total, 0);
+  const { userId, isAuthenticated, userLoading } = useUser();
+  const { data, userCartLoading } = useCart(userId);
+
+  const items = data ? data : cartItems;
+
+  const subTotal = items.reduce((acc, cur) => acc + cur.total, 0);
   const totalPrice = subTotal + MISC_FEE;
 
   const handleCheckout = () => {};
@@ -48,15 +56,15 @@ function Summary() {
     <StyledSummary>
       <Heading>Summary</Heading>
       <SubTotal>
-        Subtotal <ItemPrice>${cartItems.length ? subTotal : 0}</ItemPrice>
+        Subtotal <ItemPrice>${items.length ? subTotal : 0}</ItemPrice>
       </SubTotal>
       <SubTotal>
         Estimated Delivery & Handling{' '}
-        <ItemPrice>${cartItems.length ? MISC_FEE : 0}</ItemPrice>
+        <ItemPrice>${items.length ? MISC_FEE : 0}</ItemPrice>
       </SubTotal>
 
       <Total>
-        Total <ItemPrice>${cartItems.length ? totalPrice : 0}</ItemPrice>
+        Total <ItemPrice>${items.length ? totalPrice : 0}</ItemPrice>
       </Total>
 
       <Button $variant="primary" $size="lg" onClick={handleCheckout}>

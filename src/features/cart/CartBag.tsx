@@ -1,6 +1,10 @@
 import styled from 'styled-components';
-import CartItem from './CartItem';
+
 import { useAppSelector } from '../../store';
+import { useCart } from './useCart';
+import { useUser } from '../auth/useUser';
+
+import CartItem from './CartItem';
 
 const StyledCartBag = styled.div`
   height: 72rem;
@@ -17,10 +21,15 @@ const Heading = styled.h1`
 function CartBag() {
   const cartItems = useAppSelector((state) => state.cart.cartItems);
 
+  const { userId, isAuthenticated, userLoading } = useUser();
+  const { data, userCartLoading } = useCart(userId);
+
+  const items = data ? data : cartItems;
+
   return (
     <StyledCartBag>
       <Heading>Bag</Heading>
-      {cartItems.map((item, i) => (
+      {items.map((item, i) => (
         <CartItem key={i} item={item} />
       ))}
     </StyledCartBag>

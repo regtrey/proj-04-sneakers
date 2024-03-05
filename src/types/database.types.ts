@@ -25,7 +25,7 @@ export type Database = {
           placeholder: string[];
           slug: string;
           categorySlug: string;
-          uuid: string;
+          shoe_id: string;
         };
         Insert: {
           alt?: string;
@@ -42,7 +42,7 @@ export type Database = {
           placeholder?: string[];
           slug?: string;
           categorySlug?: string;
-          uuid?: string;
+          shoe_id?: string;
         };
         Update: {
           alt?: string;
@@ -59,7 +59,7 @@ export type Database = {
           placeholder?: string[];
           slug?: string;
           categorySlug?: string;
-          uuid?: string;
+          shoe_id?: string;
         };
         Relationships: [];
       };

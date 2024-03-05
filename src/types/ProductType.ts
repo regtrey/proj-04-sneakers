@@ -1,5 +1,5 @@
 export interface IProduct {
-  id: number;
+  shoe_id: string;
   name: string;
   brand: string;
   category: string;
@@ -12,5 +12,4 @@ export interface IProduct {
   placeholder: string[];
   slug: string;
   categorySlug: string;
-  uuid: string;
 }

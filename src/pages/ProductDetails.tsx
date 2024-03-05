@@ -2,15 +2,19 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi2';
-import { useShoe } from '../features/useShoe';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { useAppDispatch } from '../store';
 import {
+  ICartItems,
   addCartItem,
   addFavouriteItem,
   deleteFavouriteItem,
 } from '../features/cart/cartSlice';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useUser } from '../features/auth/useUser';
+import { useShoe } from '../features/useShoe';
+import { useAddCartItem } from '../features/cart/useAddCartItem';
 
 import { Button } from '../ui/Button';
 
@@ -171,6 +175,9 @@ function ProductDetails() {
 
   const dispatch = useAppDispatch();
 
+  const { userId, isAuthenticated, userLoading } = useUser();
+  const { addItem, addItemLoading } = useAddCartItem();
+
   const currentSelectedStyle = Number(searchParams.get('style')) || 1;
   const currentSelectedSize = Number(searchParams.get('size'));
 
@@ -178,9 +185,11 @@ function ProductDetails() {
   if (!shoe || error) return 'Error...';
 
   const {
-    id,
+    shoe_id,
     name,
+    brand,
     category,
+    tag,
     colors,
     sizes,
     price,
@@ -203,10 +212,12 @@ function ProductDetails() {
   const handleAddItem = (field: string) => {
     if (!currentSelectedSize) return;
 
-    const itemObj = {
-      id,
+    const cartItems: ICartItems = {
+      shoe_id,
       name,
+      brand,
       category,
+      tag,
       slug,
       categorySlug,
       color: colors[currentSelectedStyle - 1],
@@ -214,26 +225,31 @@ function ProductDetails() {
       selectedSize: currentSelectedSize,
       image: image[currentSelectedStyle - 1],
       alt,
-      placeholder,
+      placeholder: image[currentSelectedStyle - 1],
       price,
-      quantity: 1,
       total: price,
+      quantity: 1,
       isFavourite: isFav,
+      user_id: userId,
     };
 
-    if (field === 'cart') {
-      dispatch(addCartItem(itemObj));
-      navigate('/cart');
+    if (!isAuthenticated) {
+      if (field === 'cart') {
+        dispatch(addCartItem(cartItems));
+        navigate('/cart');
+      }
+      if (field === 'favourite' && !isFav) {
+        dispatch(addFavouriteItem(cartItems));
+        setIsFav(true);
+      }
+      if (field === 'favourite' && isFav) {
+        dispatch(deleteFavouriteItem({ shoe_id }));
+        setIsFav(false);
+      }
     }
 
-    if (field === 'favourite' && !isFav) {
-      dispatch(addFavouriteItem(itemObj));
-      setIsFav(true);
-    }
-
-    if (field === 'favourite' && isFav) {
-      dispatch(deleteFavouriteItem({ id }));
-      setIsFav(false);
+    if (isAuthenticated) {
+      addItem(cartItems);
     }
   };
 

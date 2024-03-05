@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import { useLogin } from '../features/auth/useLogin';
+import { useSignup } from '../features/auth/useSignup';
 
 import { Logo } from '../ui/Header';
 import { Button } from '../ui/Button';
-import { useLogin } from '../features/auth/useLogin';
-import { useSignup } from '../features/auth/useSignup';
-import { useLocation } from 'react-router-dom';
 
 const StyledAuth = styled.div`
   padding: 6rem 0;
@@ -15,7 +16,6 @@ const StyledAuth = styled.div`
 
 const Form = styled.form`
   width: 30vw;
-  /* background-color: orange; */
 `;
 
 const Label = styled.label`
@@ -35,7 +35,7 @@ const Input = styled.input`
 `;
 
 function Auth() {
-  const [email, setEmail] = useState('reg@example.com');
+  const [email, setEmail] = useState('example@example.com');
   const [password, setPassword] = useState('123456');
 
   const location = useLocation();

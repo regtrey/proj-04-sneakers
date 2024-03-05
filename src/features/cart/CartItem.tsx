@@ -1,11 +1,15 @@
 import styled from 'styled-components';
-import { ICartItems, deleteCartItem, updateItemQuantity } from './cartSlice';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { HiOutlineHeart, HiOutlineTrash } from 'react-icons/hi2';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import React, { useEffect, useState } from 'react';
+
 import { useAppDispatch } from '../../store';
-import { Link } from 'react-router-dom';
+import { ICartItems, deleteCartItem, updateItemQuantity } from './cartSlice';
+import { useUser } from '../auth/useUser';
+import { useUpdateCartItem } from './useUpdateCartItem';
+import { useDeleteCartItem } from './useDeleteCartItem';
 
 const StyledCartItem = styled.div`
   height: max-content;
@@ -102,10 +106,18 @@ function CartItem({ item }: ICartItemProps) {
   const [size, setSize] = useState(0);
   const [qty, setQty] = useState(0);
 
+  const { userId, isAuthenticated } = useUser();
+  const { updateItem, updateItemLoading } = useUpdateCartItem(
+    userId,
+    item.cart_id
+  );
+  const { deleteItem, deleteItemLoading } = useDeleteCartItem(userId);
+
   const dispatch = useAppDispatch();
 
   const {
-    id,
+    cart_id,
+    shoe_id,
     name,
     category,
     slug,
@@ -117,6 +129,7 @@ function CartItem({ item }: ICartItemProps) {
     alt,
     placeholder,
     quantity,
+    price,
     total,
   } = item;
 
@@ -130,18 +143,48 @@ function CartItem({ item }: ICartItemProps) {
     field: string
   ) => {
     const target = e.target as HTMLSelectElement;
-    if (field === 'size') {
-      setSize(Number(target.value));
+
+    if (!isAuthenticated) {
+      if (field === 'size') {
+        setSize(Number(target.value));
+      }
+      if (field === 'qty') {
+        setQty(Number(target.value));
+        dispatch(
+          updateItemQuantity({ id: shoe_id, quantity: Number(target.value) })
+        );
+      }
     }
 
-    if (field === 'qty') {
-      setQty(Number(target.value));
-      dispatch(updateItemQuantity({ id: id, quantity: Number(target.value) }));
+    let updatedItem;
+    if (isAuthenticated) {
+      if (field === 'size') {
+        updatedItem = {
+          selectedSize: Number(target.value),
+        };
+
+        setSize(Number(target.value));
+        updateItem(updatedItem);
+      }
+      if (field === 'qty') {
+        updatedItem = {
+          quantity: Number(target.value),
+          total: price * Number(target.value),
+        };
+
+        setQty(Number(target.value));
+        updateItem(updatedItem);
+      }
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteCartItem({ id }));
+    if (!isAuthenticated) {
+      dispatch(deleteCartItem({ shoe_id }));
+    }
+    if (isAuthenticated) {
+      deleteItem(cart_id);
+    }
   };
 
   return (

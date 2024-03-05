@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { userLogin } from '../../services/apiAuth';
 import { useNavigate } from 'react-router-dom';
+
+import { userLogin } from '../../services/apiAuth';
 
 export function useLogin() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export function useLogin() {
       userLogin({ email, password }),
     onSuccess: (user) => {
       console.log(user);
+
       navigate('/');
     },
     onError: () => {

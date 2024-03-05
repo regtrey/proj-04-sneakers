@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 
-import Product from './Product';
 import { useShoes } from '../features/useShoes';
+import Product from './Product';
 
 const StyledProducts = styled.div`
   height: max-content;
@@ -23,7 +23,10 @@ function Products() {
         ? 'Loading...'
         : shoes
         ? shoes.map((shoes) => (
-            <Link key={shoes.id} to={`/${shoes.categorySlug}/${shoes.slug}`}>
+            <Link
+              key={shoes.shoe_id}
+              to={`/${shoes.categorySlug}/${shoes.slug}`}
+            >
               <Product product={shoes} />
             </Link>
           ))
