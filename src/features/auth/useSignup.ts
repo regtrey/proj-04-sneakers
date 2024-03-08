@@ -7,8 +7,15 @@ export function useSignup() {
   const navigate = useNavigate();
 
   const { mutate: signup, isLoading: signupLoading } = useMutation({
-    mutationFn: ({ email, password }: { email: string; password: string }) =>
-      userSignup({ email, password }),
+    mutationFn: ({
+      name,
+      email,
+      password,
+    }: {
+      name: string;
+      email: string;
+      password: string;
+    }) => userSignup({ name, email, password }),
     onSuccess: () => {
       navigate('/');
     },

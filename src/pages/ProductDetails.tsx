@@ -278,7 +278,7 @@ function ProductDetails() {
     };
 
     if (!isAuthenticated) {
-      navigate('/signin');
+      navigate('/signup');
     }
 
     if (isAuthenticated) {

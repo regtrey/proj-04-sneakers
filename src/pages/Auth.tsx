@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { useLogin } from '../features/auth/useLogin';
 import { useSignup } from '../features/auth/useSignup';
@@ -16,6 +16,15 @@ const StyledAuth = styled.div`
 
 const Form = styled.form`
   width: 30vw;
+
+  & p {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+
+    & a {
+      color: blue;
+    }
+  }
 `;
 
 const Label = styled.label`
@@ -28,15 +37,16 @@ const Label = styled.label`
 const Input = styled.input`
   width: 100%;
   font-size: 1.5rem;
-  margin: 2rem 0 1rem;
+  margin: 2rem 0 0.5rem;
   padding: 1.75rem 1.5rem;
   border: 1px solid #000;
   border-radius: var(--border-radius-md);
 `;
 
 function Auth() {
-  const [email, setEmail] = useState('example@example.com');
-  const [password, setPassword] = useState('123456');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const location = useLocation();
   const currentPath = location.pathname.replace('/', '');
@@ -52,7 +62,7 @@ function Auth() {
       login({ email, password });
     }
     if (currentPath === 'signup') {
-      signup({ email, password });
+      signup({ name, email, password });
     }
   };
 
@@ -64,6 +74,13 @@ function Auth() {
           Enter your credentials to sign{' '}
           {currentPath === 'signin' ? 'in' : 'up'}.
         </Label>
+        {currentPath === 'signup' && (
+          <Input
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        )}
         <Input
           placeholder="Email"
           value={email}
@@ -75,11 +92,16 @@ function Auth() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {currentPath === 'signup' && (
+          <p>
+            Already have an account? <Link to="/signin">Sign in</Link>.
+          </p>
+        )}
         <Button
           type="submit"
           $variant="primary"
           $size="md"
-          $custom="width: 12rem; margin: 4rem 0 0 auto;"
+          $custom="width: 12rem; margin: 2rem 0 0 auto;"
           disabled={loginLoading || signupLoading}
         >
           Continue

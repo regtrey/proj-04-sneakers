@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Nav from './Nav';
 import { useUser } from '../features/auth/useUser';
+import { useSignout } from '../features/auth/useSignout';
 
 const StyledHeader = styled.header`
   padding: 0.5rem 4rem;
@@ -30,13 +31,26 @@ const AccountNav = styled.div`
   grid-row: 1 / 2;
 `;
 
+const Signout = styled.button`
+  font-size: 1.25rem;
+  border: none;
+  cursor: pointer;
+`;
+
 const AccountLink = styled(Link)`
   font-size: 1.25rem;
   font-weight: 500;
 `;
 
+const AccountName = styled.span`
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-transform: capitalize;
+`;
+
 function Header() {
   const { user, isAuthenticated } = useUser();
+  const { signout } = useSignout();
 
   return (
     <>
@@ -48,7 +62,11 @@ function Header() {
             <AccountLink to="/signup">Sign Up</AccountLink>{' '}
           </>
         ) : (
-          `${user?.email}`
+          <>
+            <AccountName>Hi, {user?.user_metadata.name}</AccountName>
+            <span>|</span>
+            <Signout onClick={() => signout()}>Sign out</Signout>
+          </>
         )}
       </AccountNav>
       <StyledHeader>
