@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useShoes } from '../features/useShoes';
 import Product from './Product';
@@ -11,10 +11,7 @@ const StyledProducts = styled.div`
   gap: 2rem;
 `;
 
-function Products() {
-  const location = useLocation();
-  const currentPath = location.pathname.replace('/', '');
-
+function Products({ currentPath }: { currentPath: string }) {
   const { isLoading, shoes, error } = useShoes(currentPath);
 
   return (

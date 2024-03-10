@@ -5,13 +5,17 @@ export async function getShoes(currentPath: string) {
 
   if (currentPath === 'new-and-featured') {
     // Sort all by uuid
-    ({ data, error } = await supabase.from('shoes').select('*').order('uuid'));
+    ({ data, error } = await supabase
+      .from('shoes')
+      .select('*')
+      .order('shoe_id'));
   }
 
   if (
     currentPath === 'mens' ||
     currentPath === 'womens' ||
-    currentPath === 'kids'
+    currentPath === 'kids' ||
+    currentPath === 'sports'
   ) {
     ({ data, error } = await supabase
       .from('shoes')

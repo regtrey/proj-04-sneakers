@@ -13,6 +13,7 @@ import Favourites from './pages/Favourites';
 import Cart from './pages/Cart';
 import Auth from './pages/Auth';
 import GlobalStyles from './styles/GlobalStyles';
+import Catalog from './pages/Catalog';
 
 // Setting up react query
 const queryClient = new QueryClient({
@@ -35,13 +36,15 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="home" replace />} />
           <Route path="home" element={<Home />} />
-          <Route path="new-and-featured" element={<NewFeatured />} />
-          <Route path="mens" element={<Mens />} />
+          <Route path="new-and-featured" element={<Catalog />} />
+          <Route path="mens" element={<Catalog />} />
           <Route path="mens/:slugId" element={<ProductDetails />} />
-          <Route path="womens" element={<Womens />} />
+          <Route path="womens" element={<Catalog />} />
           <Route path="womens/:slugId" element={<ProductDetails />} />
-          <Route path="kids" element={<Kids />} />
+          <Route path="kids" element={<Catalog />} />
           <Route path="kids/:slugId" element={<ProductDetails />} />
+          <Route path="sports" element={<Catalog />} />
+          <Route path="sports/:slugId" element={<ProductDetails />} />
           <Route path="favourites" element={<Favourites />} />
           <Route path="cart" element={<Cart />} />
         </Route>

@@ -65,7 +65,8 @@ function Product({ product }: IProductProps) {
         <Name>{name}</Name>
         <ShoeCategory>
           {category}
-          {category === 'kids' ? "'" : "'s"} Shoes <br />
+          {category === 'kids' || category === 'sports' ? "'" : "'s"} Shoes{' '}
+          <br />
           {colors.length} {colors.length > 1 ? 'Colours' : 'Colour'}
         </ShoeCategory>
         <Price>${price}</Price>
