@@ -17,7 +17,6 @@ export const Logo = styled.h1`
   font-size: 4rem;
   font-weight: 700;
   letter-spacing: -3px;
-  cursor: pointer;
 `;
 
 const AccountNav = styled.div`
@@ -56,11 +55,7 @@ function Header() {
     <>
       <AccountNav>
         {!isAuthenticated ? (
-          <>
-            <AccountLink to="/signin">Sign In</AccountLink>
-            <span>|</span>
-            <AccountLink to="/signup">Sign Up</AccountLink>{' '}
-          </>
+          <AccountLink to="/signup">Sign Up</AccountLink>
         ) : (
           <>
             <AccountName>Hi, {user?.user_metadata.name}</AccountName>

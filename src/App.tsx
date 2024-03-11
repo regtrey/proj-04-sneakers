@@ -4,16 +4,13 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import Layout from './ui/Layout';
 import Home from './pages/Home';
-import NewFeatured from './pages/NewFeatured';
-import Mens from './pages/Mens';
-import Womens from './pages/Womens';
-import Kids from './pages/Kids';
+import Catalog from './pages/Catalog';
 import ProductDetails from './pages/ProductDetails';
 import Favourites from './pages/Favourites';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import Auth from './pages/Auth';
 import GlobalStyles from './styles/GlobalStyles';
-import Catalog from './pages/Catalog';
 
 // Setting up react query
 const queryClient = new QueryClient({
@@ -47,6 +44,7 @@ function App() {
           <Route path="sports/:slugId" element={<ProductDetails />} />
           <Route path="favourites" element={<Favourites />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
         </Route>
         <Route path="signin" element={<Auth />} />
         <Route path="signup" element={<Auth />} />

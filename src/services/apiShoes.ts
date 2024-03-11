@@ -8,6 +8,7 @@ export async function getShoes(currentPath: string) {
     ({ data, error } = await supabase
       .from('shoes')
       .select('*')
+      .order('brand')
       .order('shoe_id'));
   }
 

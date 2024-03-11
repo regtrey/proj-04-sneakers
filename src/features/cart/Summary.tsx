@@ -5,6 +5,7 @@ import { useCart } from './useCart';
 
 import { ItemPrice } from './CartItem';
 import { Button } from '../../ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 const StyledSummary = styled.div`
   height: max-content;
@@ -39,6 +40,7 @@ const Total = styled.div`
 const MISC_FEE = 5;
 
 function Summary() {
+  const navigate = useNavigate();
   const { userId } = useUser();
   const { cartItems } = useCart(userId);
 
@@ -47,7 +49,9 @@ function Summary() {
   const subTotal = cartItems?.reduce((acc, cur) => acc + cur.total, 0);
   const totalPrice = subTotal + MISC_FEE;
 
-  const handleCheckout = () => {};
+  const handleCheckout = () => {
+    navigate('/checkout');
+  };
 
   return (
     <StyledSummary>
