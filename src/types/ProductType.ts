@@ -35,3 +35,15 @@ export interface ICart {
   total?: number;
   user_id?: string;
 }
+
+export interface IOrder {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  country: string;
+  city: string;
+  postalCode: string;
+  order: ICart[];
+  user_id: string;
+}

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import CheckoutItems from './CheckoutItems';
-import { ICart } from '../types/ProductType';
+import { ICart } from '../../types/ProductType';
 
 const StyledCheckoutItemsContainer = styled.div`
   height: 35rem;

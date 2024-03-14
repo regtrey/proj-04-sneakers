@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import ContactInfo from '../checkout/ContactInfo';
-import OrderSummary from '../checkout/OrderSummary';
+import ContactInfo from '../features/checkout/ContactInfo';
+import OrderSummary from '../features/checkout/OrderSummary';
 
 const StyledCheckout = styled.div`
   padding: 6rem 0;

@@ -21,8 +21,6 @@ function CartBag() {
   const { userId } = useUser();
   const { cartItems } = useCart(userId);
 
-  if (!userId || !cartItems) return null;
-
   return (
     <StyledCartBag>
       <Heading>Bag</Heading>

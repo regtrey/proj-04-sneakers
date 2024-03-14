@@ -1,7 +1,13 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Button } from '../ui/Button';
+import { useUser } from '../auth/useUser';
+import { useCart } from '../cart/useCart';
+import { Button } from '../../ui/Button';
+import { useAddCheckoutOrder } from './useAddCheckoutOrder';
+import { IOrder } from '../../types/ProductType';
+import { useDeleteCheckoutOrder } from './useDeleteCheckoutOrder';
 
 const StyledContactInfo = styled.div`
   height: 72rem;
@@ -64,6 +70,37 @@ function ContactInfo() {
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
+  const navigate = useNavigate();
+  const { isAuthenticated, userId } = useUser();
+  const { cartItems } = useCart(userId);
+  const { addOrderItem } = useAddCheckoutOrder();
+  const { deleteOrderItem } = useDeleteCheckoutOrder(userId);
+
+  useEffect(() => {
+    if (!isAuthenticated && !cartItems) {
+      navigate('/');
+    }
+  }, [isAuthenticated, cartItems, navigate]);
+
+  const handleOrder = () => {
+    if (!userId || !cartItems) return;
+
+    const orderItem: IOrder = {
+      email,
+      firstName,
+      lastName,
+      address,
+      country,
+      city,
+      postalCode,
+      order: cartItems,
+      user_id: userId,
+    };
+
+    addOrderItem(orderItem);
+    deleteOrderItem(userId);
+  };
+
   const handleCancel = () => {
     setEmail('');
     setFirstName('');
@@ -81,6 +118,7 @@ function ContactInfo() {
         <Label>Contact information</Label>
         <InfoContainer>
           <Input
+            required
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -91,6 +129,7 @@ function ContactInfo() {
         <Label>Shipping address</Label>
         <InfoContainer $custom="grid-column: 1 / 3;">
           <Input
+            required
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -98,25 +137,39 @@ function ContactInfo() {
         </InfoContainer>
         <InfoContainer $custom="grid-column: 3 / 5;">
           <Input
+            required
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
           <span>Last name</span>
         </InfoContainer>
         <InfoContainer>
-          <Input value={address} onChange={(e) => setAddress(e.target.value)} />
+          <Input
+            required
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
           <span>Address</span>
         </InfoContainer>
         <InfoContainer>
-          <Input value={country} onChange={(e) => setCountry(e.target.value)} />
+          <Input
+            required
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
           <span>Country</span>
         </InfoContainer>
         <InfoContainer $custom="grid-column: 1 / 3;">
-          <Input value={city} onChange={(e) => setCity(e.target.value)} />
+          <Input
+            required
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
           <span>City</span>
         </InfoContainer>
         <InfoContainer $custom="grid-column: 3 / 5;">
           <Input
+            required
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
           />
@@ -136,6 +189,7 @@ function ContactInfo() {
           $variant="primary"
           $size="md"
           $custom="grid-column: 4 / 5;"
+          onClick={handleOrder}
         >
           Checkout
         </Button>

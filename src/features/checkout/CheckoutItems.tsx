@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
-import { ICart } from '../types/ProductType';
-import formatCurrency from '../utils/formatCurrency';
+import { ICart } from '../../types/ProductType';
+import formatCurrency from '../../utils/formatCurrency';
 
 const StyledCheckoutItems = styled.div`
-  /* background-color: red; */
-  /* padding: 2rem;  */
   margin: 2rem 0;
   display: flex;
   gap: 1rem;
@@ -19,7 +17,6 @@ const ItemImage = styled.img`
 
 const ItemDescription = styled.div`
   width: 100%;
-  /* background-color: aquamarine; */
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -39,26 +36,6 @@ const ItemDetails = styled.span`
 interface ICheckoutItemsProps {
   item: ICart;
 }
-
-// cart_id?: string;
-//   shoe_id?: string;
-//   name: string;
-//   brand?: string;
-//   category: string;
-//   tag?: string;
-//   slug: string;
-//   categorySlug: string;
-//   color: string;
-//   sizes: string[];
-//   selectedSize: number;
-//   image: string;
-//   alt: string;
-//   placeholder: string;
-//   price: number;
-//   quantity: number;
-//   isFavourite: boolean;
-//   total?: number;
-//   user_id?: string;
 
 function CheckoutItems({ item }: ICheckoutItemsProps) {
   return (

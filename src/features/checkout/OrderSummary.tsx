@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import Summary from '../features/cart/Summary';
+import Summary from '../cart/Summary';
 
 const StyledOrderSummary = styled.div`
   height: 40rem;
   width: 35rem;
-  /* background-color: orange; */
 `;
 
 function OrderSummary() {

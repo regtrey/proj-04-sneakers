@@ -6,7 +6,7 @@ import { useCart } from './useCart';
 
 import { Button } from '../../ui/Button';
 import { ItemPrice } from './CartItem';
-import CheckoutItemsContainer from '../../checkout/CheckoutItemsContainer';
+import CheckoutItemsContainer from '../checkout/CheckoutItemsContainer';
 import formatCurrency from '../../utils/formatCurrency';
 
 const StyledSummary = styled.div`
@@ -41,17 +41,13 @@ const Total = styled.div`
 
 const MISC_FEE = 5;
 
-function Summary({ isCheckingout = false }: { isCheckingout: boolean }) {
+function Summary({ isCheckingout = false }: { isCheckingout?: boolean }) {
   const navigate = useNavigate();
   const { userId } = useUser();
   const { cartItems } = useCart(userId);
 
-  if (!cartItems) return null;
-
   const subTotal = cartItems?.reduce((acc, cur) => acc + cur.total, 0);
   const totalPrice = subTotal + MISC_FEE;
-
-  console.log(cartItems);
 
   const handleCheckout = () => {
     navigate('/checkout');
@@ -80,13 +76,13 @@ function Summary({ isCheckingout = false }: { isCheckingout: boolean }) {
         </ItemPrice>
       </Total>
 
-      {isCheckingout ? (
+      {isCheckingout && cartItems ? (
         <CheckoutItemsContainer items={cartItems} />
-      ) : (
+      ) : cartItems ? (
         <Button $variant="primary" $size="lg" onClick={handleCheckout}>
           Checkout
         </Button>
-      )}
+      ) : null}
     </StyledSummary>
   );
 }
