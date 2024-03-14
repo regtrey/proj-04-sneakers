@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../auth/useUser';
 import { useCart } from './useCart';
 
-import { ItemPrice } from './CartItem';
 import { Button } from '../../ui/Button';
-import { useNavigate } from 'react-router-dom';
+import { ItemPrice } from './CartItem';
+import CheckoutItemsContainer from '../../checkout/CheckoutItemsContainer';
+import formatCurrency from '../../utils/formatCurrency';
 
 const StyledSummary = styled.div`
   height: max-content;
@@ -39,7 +41,7 @@ const Total = styled.div`
 
 const MISC_FEE = 5;
 
-function Summary() {
+function Summary({ isCheckingout = false }: { isCheckingout: boolean }) {
   const navigate = useNavigate();
   const { userId } = useUser();
   const { cartItems } = useCart(userId);
@@ -49,6 +51,8 @@ function Summary() {
   const subTotal = cartItems?.reduce((acc, cur) => acc + cur.total, 0);
   const totalPrice = subTotal + MISC_FEE;
 
+  console.log(cartItems);
+
   const handleCheckout = () => {
     navigate('/checkout');
   };
@@ -57,20 +61,32 @@ function Summary() {
     <StyledSummary>
       <Heading>Summary</Heading>
       <SubTotal>
-        Subtotal <ItemPrice>${cartItems?.length ? subTotal : 0}</ItemPrice>
+        Subtotal{' '}
+        <ItemPrice>
+          {formatCurrency(cartItems?.length ? subTotal : 0)}
+        </ItemPrice>
       </SubTotal>
       <SubTotal>
         Estimated Delivery & Handling{' '}
-        <ItemPrice>${cartItems?.length ? MISC_FEE : 0}</ItemPrice>
+        <ItemPrice>
+          {formatCurrency(cartItems?.length ? MISC_FEE : 0)}
+        </ItemPrice>
       </SubTotal>
 
       <Total>
-        Total <ItemPrice>${cartItems?.length ? totalPrice : 0}</ItemPrice>
+        Total{' '}
+        <ItemPrice>
+          {formatCurrency(cartItems?.length ? totalPrice : 0)}
+        </ItemPrice>
       </Total>
 
-      <Button $variant="primary" $size="lg" onClick={handleCheckout}>
-        Checkout
-      </Button>
+      {isCheckingout ? (
+        <CheckoutItemsContainer items={cartItems} />
+      ) : (
+        <Button $variant="primary" $size="lg" onClick={handleCheckout}>
+          Checkout
+        </Button>
+      )}
     </StyledSummary>
   );
 }

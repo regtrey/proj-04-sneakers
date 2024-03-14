@@ -64,6 +64,16 @@ function ContactInfo() {
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
+  const handleCancel = () => {
+    setEmail('');
+    setFirstName('');
+    setLastName('');
+    setAddress('');
+    setCountry('');
+    setCity('');
+    setPostalCode('');
+  };
+
   return (
     <StyledContactInfo>
       <Heading>Checkout</Heading>
@@ -113,10 +123,19 @@ function ContactInfo() {
           <span>Postal code</span>
         </InfoContainer>
         <Button
+          type="reset"
+          $variant="secondary"
+          $size="md"
+          $custom="grid-column: 3 / 4;"
+          onClick={handleCancel}
+        >
+          Cancel
+        </Button>
+        <Button
           type="submit"
           $variant="primary"
           $size="md"
-          $custom="grid-column: 4 / -1;"
+          $custom="grid-column: 4 / 5;"
         >
           Checkout
         </Button>
