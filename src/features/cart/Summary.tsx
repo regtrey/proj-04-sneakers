@@ -76,13 +76,14 @@ function Summary({ isCheckingout = false }: { isCheckingout?: boolean }) {
         </ItemPrice>
       </Total>
 
-      {isCheckingout && cartItems ? (
+      {isCheckingout && cartItems && (
         <CheckoutItemsContainer items={cartItems} />
-      ) : cartItems ? (
+      )}
+      {!isCheckingout && cartItems && cartItems?.length > 0 && (
         <Button $variant="primary" $size="lg" onClick={handleCheckout}>
           Checkout
         </Button>
-      ) : null}
+      )}
     </StyledSummary>
   );
 }
