@@ -11,6 +11,8 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Auth from './pages/Auth';
 import GlobalStyles from './styles/GlobalStyles';
+import Account from './pages/Account';
+import Orders from './pages/Orders';
 
 // Setting up react query
 const queryClient = new QueryClient({
@@ -45,6 +47,8 @@ function App() {
           <Route path="favourites" element={<Favourites />} />
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="account" element={<Account />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
         <Route path="signin" element={<Auth />} />
         <Route path="signup" element={<Auth />} />

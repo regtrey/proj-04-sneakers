@@ -90,12 +90,12 @@ function Header() {
             <span>|</span>
             <Signout onClick={() => signout()}>Sign out</Signout>
             {show && (
-              <AccountModal>
+              <AccountModal onMouseLeave={() => setShow((s) => !s)}>
                 <span>
-                  <Link to="/">Account</Link>
+                  <Link to="/account">Account</Link>
                 </span>
                 <span>
-                  <Link to="/">Orders</Link>
+                  <Link to="/orders">Orders</Link>
                 </span>
               </AccountModal>
             )}
