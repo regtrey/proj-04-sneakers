@@ -57,3 +57,22 @@ export async function getCurrentUser() {
 
   return data?.user;
 }
+
+export async function updateUserProfile(name: string, password: string) {
+  let query = await supabase.auth.updateUser({
+    data: { name },
+  });
+
+  if (password.length >= 6) {
+    query = await supabase.auth.updateUser({
+      password,
+      data: { name },
+    });
+  }
+
+  const { data, error } = query;
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
