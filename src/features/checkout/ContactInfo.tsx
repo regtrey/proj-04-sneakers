@@ -71,7 +71,7 @@ function ContactInfo() {
   const [postalCode, setPostalCode] = useState('');
 
   const navigate = useNavigate();
-  const { isAuthenticated, userId } = useUser();
+  const { isAuthenticated, userId, user } = useUser();
   const { cartItems } = useCart(userId);
   const { addOrderItem } = useAddCheckoutOrder();
   const { deleteOrderItem } = useDeleteCheckoutOrder(userId);
@@ -80,7 +80,15 @@ function ContactInfo() {
     if (!isAuthenticated && !cartItems) {
       navigate('/');
     }
-  }, [isAuthenticated, cartItems, navigate]);
+    if (user) {
+      const userName = user.user_metadata.name.split(' ');
+
+      setEmail(user?.email || '');
+      setFirstName(userName.at(0));
+
+      if (userName.length > 1) setLastName(userName.at(-1));
+    }
+  }, [isAuthenticated, user, cartItems, navigate]);
 
   const handleOrder = () => {
     if (!userId || !cartItems) return;
