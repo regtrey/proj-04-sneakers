@@ -13,10 +13,12 @@ export async function getShoes(currentPath: string, searchQuery?: string) {
   }
 
   if (currentPath === 'results' && searchQuery) {
+    const query = searchQuery.split(' ');
+
     ({ data, error } = await supabase
       .from('shoes')
       .select('*')
-      .textSearch('name', searchQuery));
+      .textSearch('name', `${query.join(' & ')}`));
   }
 
   if (

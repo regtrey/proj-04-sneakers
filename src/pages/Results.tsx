@@ -25,6 +25,7 @@ function Results() {
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
+  console.log(query);
 
   return (
     <StyledResults>
