@@ -4,10 +4,10 @@ import AccountSettings from '../features/account/AccountSettings';
 const StyledAccount = styled.div`
   height: 100dvh;
   background-color: var(--color-gray-100);
-  padding: 6rem 4rem;
+  padding: 6rem 10rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 `;
 
 const Heading = styled.h1`

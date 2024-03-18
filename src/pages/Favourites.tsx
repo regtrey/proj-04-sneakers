@@ -7,7 +7,7 @@ import { useUser } from '../features/auth/useUser';
 import { useFavourites } from '../features/favourites/useFavourites';
 
 const StyledFavourites = styled.div`
-  padding: 6rem 4rem;
+  padding: 6rem 10rem;
   display: flex;
   flex-direction: column;
   gap: 4rem;

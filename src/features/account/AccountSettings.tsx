@@ -56,8 +56,6 @@ function AccountSettings() {
   const { user } = useUser();
   const { updateUser } = useUpdateUser();
 
-  console.log(user);
-
   useEffect(() => {
     if (user) {
       setEmail(user.email || '');

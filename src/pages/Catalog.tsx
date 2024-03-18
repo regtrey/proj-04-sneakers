@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom';
 import Products from '../ui/Products';
 
 const StyledCatalog = styled.div`
-  padding: 6rem 4rem;
+  padding: 6rem 10rem;
+  padding-bottom: 4rem;
 `;
 
 const Heading = styled.h1`
@@ -16,19 +17,6 @@ const Heading = styled.h1`
   & span {
     text-transform: capitalize;
   }
-`;
-
-const Layout = styled.div`
-  background-color: white;
-  display: grid;
-  grid-template-columns: 20rem 1fr;
-  gap: 4rem;
-`;
-
-const Refinements = styled.aside`
-  background-color: green;
-
-  grid-column: 1 / 2;
 `;
 
 function Catalog() {
@@ -47,11 +35,7 @@ function Catalog() {
         <span>{currentPath === 'new-and-featured' ? 'all' : category}</span>{' '}
         shoes
       </Heading>
-
-      <Layout>
-        <Refinements>REFINEMENTS</Refinements>
-        <Products currentPath={currentPath} />
-      </Layout>
+      <Products currentPath={currentPath} />
     </StyledCatalog>
   );
 }

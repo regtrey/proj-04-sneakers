@@ -6,9 +6,9 @@ import Product from './Product';
 
 const StyledProducts = styled.div`
   height: max-content;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 function Products({ currentPath }: { currentPath: string }) {

@@ -6,6 +6,7 @@ import { IProduct } from '../types/ProductType';
 
 const StyledProduct = styled.div`
   height: max-content;
+  margin-bottom: 2rem;
   position: relative;
 `;
 
