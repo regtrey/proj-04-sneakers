@@ -1,6 +1,6 @@
 import supabase from './supabase';
 
-export async function getShoes(currentPath: string) {
+export async function getShoes(currentPath: string, searchQuery?: string) {
   let data, error;
 
   if (currentPath === 'new-and-featured') {
@@ -10,6 +10,13 @@ export async function getShoes(currentPath: string) {
       .select('*')
       .order('brand')
       .order('shoe_id'));
+  }
+
+  if (currentPath === 'results' && searchQuery) {
+    ({ data, error } = await supabase
+      .from('shoes')
+      .select('*')
+      .textSearch('name', searchQuery));
   }
 
   if (

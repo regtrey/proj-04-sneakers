@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { HiOutlineHeart, HiOutlineShoppingBag } from 'react-icons/hi2';
+import React, { useState } from 'react';
 
 const StyledNav = styled.nav`
   width: 60vw;
@@ -79,6 +80,16 @@ const links: HeaderLink[] = [
 ];
 
 function Nav() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`/results?query=${searchQuery}`);
+    setSearchQuery('');
+  };
+
   return (
     <StyledNav>
       <NavLinkList>
@@ -90,7 +101,14 @@ function Nav() {
       </NavLinkList>
 
       <NavMisc>
-        <Search type="text" placeholder="Search" />
+        <form onSubmit={handleSearch}>
+          <Search
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </form>
 
         <NavMiscButton to="/favourites">
           <HiOutlineHeart />

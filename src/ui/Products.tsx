@@ -6,13 +6,19 @@ import Product from './Product';
 
 const StyledProducts = styled.div`
   height: max-content;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 `;
 
-function Products({ currentPath }: { currentPath: string }) {
-  const { isLoading, shoes, error } = useShoes(currentPath);
+function Products({
+  currentPath,
+  searchQuery,
+}: {
+  currentPath: string;
+  searchQuery?: string;
+}) {
+  const { isLoading, shoes, error } = useShoes(currentPath, searchQuery);
 
   return (
     <StyledProducts>

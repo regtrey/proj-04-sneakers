@@ -13,6 +13,7 @@ import Auth from './pages/Auth';
 import GlobalStyles from './styles/GlobalStyles';
 import Account from './pages/Account';
 import Orders from './pages/Orders';
+import Results from './pages/Results';
 
 // Setting up react query
 const queryClient = new QueryClient({
@@ -49,6 +50,7 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="account" element={<Account />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="results" element={<Results />} />
         </Route>
         <Route path="signin" element={<Auth />} />
         <Route path="signup" element={<Auth />} />
