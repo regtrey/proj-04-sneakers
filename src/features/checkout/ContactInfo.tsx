@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../auth/useUser';
 import { useCart } from '../cart/useCart';
-import { Button } from '../../ui/Button';
 import { useAddCheckoutOrder } from './useAddCheckoutOrder';
-import { IOrder } from '../../types/ProductType';
 import { useDeleteCheckoutOrder } from './useDeleteCheckoutOrder';
+import { IOrder } from '../../types/ProductType';
+import { Button } from '../../ui/Button';
 
 const StyledContactInfo = styled.div`
   height: 72rem;
@@ -90,7 +90,9 @@ function ContactInfo() {
     }
   }, [isAuthenticated, user, cartItems, navigate]);
 
-  const handleOrder = () => {
+  const handleOrder = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (!userId || !cartItems) return;
 
     const orderItem: IOrder = {
@@ -105,8 +107,10 @@ function ContactInfo() {
       user_id: userId,
     };
 
-    addOrderItem(orderItem);
-    deleteOrderItem(userId);
+    if (userId && orderItem) {
+      addOrderItem(orderItem);
+      deleteOrderItem(userId);
+    }
   };
 
   const handleCancel = () => {
@@ -122,7 +126,7 @@ function ContactInfo() {
   return (
     <StyledContactInfo>
       <Heading>Checkout</Heading>
-      <Form>
+      <Form onSubmit={handleOrder}>
         <Label>Contact information</Label>
         <InfoContainer>
           <Input

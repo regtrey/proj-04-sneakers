@@ -10,7 +10,7 @@ export function useAddCheckoutOrder() {
   const { mutate: addOrderItem, isLoading: addOrderItemLoading } = useMutation({
     mutationFn: (orderItem: IOrder) => addOrder(orderItem),
     onSuccess: () => {
-      navigate('/');
+      navigate('/orders');
     },
   });
 
