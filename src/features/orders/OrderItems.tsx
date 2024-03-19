@@ -1,9 +1,12 @@
 import styled from 'styled-components';
+import React from 'react';
 
 import { useUser } from '../auth/useUser';
 import { useOrder } from './useOrder';
-import Order from './Order';
+
 import { ICart } from '../../types/ProductType';
+import Order from './Order';
+import Spinner from '../../ui/Spinner';
 
 const StyledOrderItems = styled.div`
   height: max-content;
@@ -23,8 +26,7 @@ const MS_PER_DAY = 86400000;
 
 function OrderItems() {
   const { userId } = useUser();
-  const { orderItems } = useOrder(userId);
-  console.log(orderItems);
+  const { orderItems, orderItemsLoading } = useOrder(userId);
 
   // Milliseconds in a day: 1000ms * 60sec * 60m * 24h => 86 400 000
   // Fixed mock arrival date of 7 days: 86 400 000 * 7 + current time in ms
@@ -37,20 +39,19 @@ function OrderItems() {
     .slice(0, 4)
     .join(' ');
 
-  console.log(curTime, arrivalDate);
-
   return (
     <StyledOrderItems>
+      {orderItemsLoading && <Spinner />}
       {orderItems &&
         orderItems.map((item) => {
           return (
-            <>
+            <React.Fragment key={item.order_id}>
               <DetailsSpan>Order #{item.order_id.split('-').at(0)}</DetailsSpan>
               <DetailsSpan>Arrives by {arrivalDate}</DetailsSpan>
               {item.order.map((orderItem: ICart, i: number) => (
-                <Order key={i} item={orderItem} />
+                <Order key={item.order_id + i} item={orderItem} />
               ))}
-            </>
+            </React.Fragment>
           );
         })}
     </StyledOrderItems>

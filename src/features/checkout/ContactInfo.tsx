@@ -6,8 +6,10 @@ import { useUser } from '../auth/useUser';
 import { useCart } from '../cart/useCart';
 import { useAddCheckoutOrder } from './useAddCheckoutOrder';
 import { useDeleteCheckoutOrder } from './useDeleteCheckoutOrder';
+
 import { IOrder } from '../../types/ProductType';
 import { Button } from '../../ui/Button';
+import SpinnerMini from '../../ui/SpinnerMini';
 
 const StyledContactInfo = styled.div`
   height: 72rem;
@@ -73,11 +75,11 @@ function ContactInfo() {
   const navigate = useNavigate();
   const { isAuthenticated, userId, user } = useUser();
   const { cartItems } = useCart(userId);
-  const { addOrderItem } = useAddCheckoutOrder();
+  const { addOrderItem, addOrderItemLoading } = useAddCheckoutOrder();
   const { deleteOrderItem } = useDeleteCheckoutOrder(userId);
 
   useEffect(() => {
-    if (!isAuthenticated && !cartItems) {
+    if (!isAuthenticated || !cartItems) {
       navigate('/');
     }
     if (user) {
@@ -107,7 +109,7 @@ function ContactInfo() {
       user_id: userId,
     };
 
-    if (userId && orderItem) {
+    if (cartItems.length > 0) {
       addOrderItem(orderItem);
       deleteOrderItem(userId);
     }
@@ -201,9 +203,8 @@ function ContactInfo() {
           $variant="primary"
           $size="md"
           $custom="grid-column: 4 / 5;"
-          onClick={handleOrder}
         >
-          Checkout
+          {addOrderItemLoading ? <SpinnerMini /> : 'Checkout'}
         </Button>
       </Form>
     </StyledContactInfo>

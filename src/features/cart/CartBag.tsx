@@ -4,6 +4,7 @@ import { useUser } from '../auth/useUser';
 import { useCart } from './useCart';
 
 import CartItem from './CartItem';
+import Spinner from '../../ui/Spinner';
 
 const StyledCartBag = styled.div`
   height: 72rem;
@@ -19,11 +20,12 @@ const Heading = styled.h1`
 
 function CartBag() {
   const { userId } = useUser();
-  const { cartItems } = useCart(userId);
+  const { cartItems, userCartLoading } = useCart(userId);
 
   return (
     <StyledCartBag>
       <Heading>Bag</Heading>
+      {userCartLoading && <Spinner />}
       {cartItems
         ? cartItems.map((item, i) => <CartItem key={i} item={item} />)
         : null}

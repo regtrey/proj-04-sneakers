@@ -7,6 +7,7 @@ import { useSignup } from '../features/auth/useSignup';
 
 import { Logo } from '../ui/Header';
 import { Button } from '../ui/Button';
+import SpinnerMini from '../ui/SpinnerMini';
 
 const StyledAuth = styled.div`
   padding: 6rem 0;
@@ -76,7 +77,7 @@ function Auth() {
         </Label>
         {currentPath === 'signup' && (
           <Input
-            placeholder="Name"
+            placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -104,7 +105,14 @@ function Auth() {
           $custom="width: 12rem; margin: 2rem 0 0 auto;"
           disabled={loginLoading || signupLoading}
         >
-          Continue
+          {/* {currentPath === 'signin' ? 'Sign In' : 'Sign Up'} */}
+          {loginLoading || signupLoading ? (
+            <SpinnerMini />
+          ) : currentPath === 'signin' ? (
+            'Sign In'
+          ) : (
+            'Sign Up'
+          )}
         </Button>
       </Form>
     </StyledAuth>

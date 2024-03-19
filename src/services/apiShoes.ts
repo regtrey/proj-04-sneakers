@@ -13,6 +13,7 @@ export async function getShoes(currentPath: string, searchQuery?: string) {
   }
 
   if (currentPath === 'results' && searchQuery) {
+    // If the query contains a space, it needs to be separated by an operator
     const query = searchQuery.split(' ');
 
     ({ data, error } = await supabase
