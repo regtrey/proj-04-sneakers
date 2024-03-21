@@ -66,6 +66,16 @@ const ProductPrice = styled.span`
   font-weight: 500;
 `;
 
+const Empty = styled.div`
+  height: 20rem;
+  width: 85vw;
+  font-size: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 function Favourites() {
   const { userId } = useUser();
   const { favouriteItems } = useFavourites(userId);
@@ -74,6 +84,7 @@ function Favourites() {
     <StyledFavourites>
       <Heading>Favourites</Heading>
       <FavouritesContainer>
+        {favouriteItems?.length === 0 && <Empty>You have no favorites</Empty>}
         {favouriteItems?.map((item) => (
           <Product key={item.shoe_id}>
             <Link to={`/${item.categorySlug}/${item.slug}`}>

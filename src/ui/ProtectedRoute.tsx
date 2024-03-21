@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../features/auth/useUser';
@@ -12,7 +12,7 @@ const FullPage = styled.div`
   justify-content: center;
 `;
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
+function ProtectedRoute({ children }: { children: JSX.Element }) {
   const navigate = useNavigate();
   const { isAuthenticated, userLoading } = useUser();
 

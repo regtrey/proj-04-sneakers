@@ -3,7 +3,7 @@ import supabase from './supabase';
 export async function getShoes(currentPath: string, searchQuery?: string) {
   let data, error;
 
-  if (currentPath === 'new-and-featured') {
+  if (currentPath === 'new-and-featured' || searchQuery === '') {
     // Sort all by uuid
     ({ data, error } = await supabase
       .from('shoes')

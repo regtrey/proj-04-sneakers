@@ -14,6 +14,16 @@ const StyledProducts = styled.div`
   gap: 2rem;
 `;
 
+const Empty = styled.div`
+  height: 40rem;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  grid-column: 1 / -1;
+`;
+
 function Products({
   currentPath,
   searchQuery,
@@ -25,6 +35,9 @@ function Products({
 
   return (
     <StyledProducts>
+      {searchQuery && shoes?.length === 0 && (
+        <Empty>No search results found for '{searchQuery}'</Empty>
+      )}
       {isLoading ? (
         <Spinner $custom="grid-column: 1 / -1;" />
       ) : shoes ? (

@@ -25,13 +25,10 @@ function Results() {
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
-  console.log(query);
 
   return (
     <StyledResults>
-      <Heading>
-        {query ? `Search results for '${query}'` : 'No search query'}
-      </Heading>
+      <Heading>{query ? `Search results for '${query}'` : 'All shoes'}</Heading>
       <Products currentPath={currentPath} searchQuery={query} />
     </StyledResults>
   );

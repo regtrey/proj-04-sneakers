@@ -86,6 +86,9 @@ function Nav() {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!searchQuery || searchQuery.length <= 2) return;
+
     navigate(`/results?query=${searchQuery}`);
     setSearchQuery('');
   };

@@ -22,6 +22,15 @@ const DetailsSpan = styled.span`
   text-transform: uppercase;
 `;
 
+const Empty = styled.div`
+  height: 20rem;
+  font-size: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const MS_PER_DAY = 86400000;
 
 function OrderItems() {
@@ -41,6 +50,7 @@ function OrderItems() {
 
   return (
     <StyledOrderItems>
+      {orderItems?.length === 0 && <Empty>You have no orders yet</Empty>}
       {orderItemsLoading && <Spinner />}
       {orderItems &&
         orderItems.map((item) => {

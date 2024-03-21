@@ -7,8 +7,6 @@ import formatCurrency from '../../utils/formatCurrency';
 
 const StyledOrder = styled.div`
   width: 100%;
-  /* border-top: 1px solid var(--color-gray-100); */
-  /* border-bottom: 1px solid var(--color-gray-100); */
   padding: 2rem 0;
   display: flex;
   gap: 5rem;
