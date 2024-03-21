@@ -10,7 +10,7 @@ export function useLogin() {
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       userLogin({ email, password }),
     onSuccess: () => {
-      navigate('/');
+      navigate('/', { replace: true });
     },
     onError: () => {
       console.error('The provided email or password are incorrect');

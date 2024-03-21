@@ -3,17 +3,18 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import Layout from './ui/Layout';
-import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import ProductDetails from './pages/ProductDetails';
 import Favourites from './pages/Favourites';
 import Cart from './pages/Cart';
+import Results from './pages/Results';
 import Checkout from './pages/Checkout';
 import Auth from './pages/Auth';
-import GlobalStyles from './styles/GlobalStyles';
 import Account from './pages/Account';
 import Orders from './pages/Orders';
-import Results from './pages/Results';
+import GlobalStyles from './styles/GlobalStyles';
+import AuthProtect from './ui/AuthProtect';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 // Setting up react query
 const queryClient = new QueryClient({
@@ -30,12 +31,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Navigate to="home" replace />} />
-          <Route path="home" element={<Home />} />
+          <Route index element={<Navigate to="new-and-featured" replace />} />
           <Route path="new-and-featured" element={<Catalog />} />
           <Route path="mens" element={<Catalog />} />
           <Route path="mens/:slugId" element={<ProductDetails />} />
@@ -47,13 +46,48 @@ function App() {
           <Route path="sports/:slugId" element={<ProductDetails />} />
           <Route path="favourites" element={<Favourites />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="account" element={<Account />} />
-          <Route path="orders" element={<Orders />} />
           <Route path="results" element={<Results />} />
+          <Route
+            path="checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="orders"
+            element={
+              <ProtectedRoute>
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
         </Route>
-        <Route path="signin" element={<Auth />} />
-        <Route path="signup" element={<Auth />} />
+        <Route
+          path="signin"
+          element={
+            <AuthProtect>
+              <Auth />
+            </AuthProtect>
+          }
+        />
+        <Route
+          path="signup"
+          element={
+            <AuthProtect>
+              <Auth />
+            </AuthProtect>
+          }
+        />
       </Routes>
     </QueryClientProvider>
   );

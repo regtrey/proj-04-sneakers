@@ -70,7 +70,9 @@ function Auth() {
   return (
     <StyledAuth>
       <Form onSubmit={handleSubmit}>
-        <Logo>sneakers</Logo>
+        <Link to="/">
+          <Logo>sneakers</Logo>
+        </Link>
         <Label>
           Enter your credentials to sign{' '}
           {currentPath === 'signin' ? 'in' : 'up'}.
@@ -105,7 +107,6 @@ function Auth() {
           $custom="width: 12rem; margin: 2rem 0 0 auto;"
           disabled={loginLoading || signupLoading}
         >
-          {/* {currentPath === 'signin' ? 'Sign In' : 'Sign Up'} */}
           {loginLoading || signupLoading ? (
             <SpinnerMini />
           ) : currentPath === 'signin' ? (

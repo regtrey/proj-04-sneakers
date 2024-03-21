@@ -17,7 +17,7 @@ export function useSignup() {
       password: string;
     }) => userSignup({ name, email, password }),
     onSuccess: () => {
-      navigate('/');
+      navigate('/', { replace: true });
     },
     onError: () => {
       console.error('The provided email or password are incorrect');
