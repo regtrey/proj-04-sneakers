@@ -10,6 +10,10 @@ const StyledOrder = styled.div`
   padding: 2rem 0;
   display: flex;
   gap: 5rem;
+
+  @media screen and (max-width: 768px) {
+    gap: 2.5rem;
+  }
 `;
 
 const ItemImage = styled(LazyLoadImage)`

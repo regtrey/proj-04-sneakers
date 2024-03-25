@@ -8,6 +8,10 @@ const StyledAccount = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
 const Heading = styled.h1`

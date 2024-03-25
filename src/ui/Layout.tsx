@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 
 import Header from './Header';
-import Footer from './Footer';
 
 const StyledLayout = styled.div`
   height: 100dvh;
   display: grid;
-  grid-template-rows: auto auto 1fr 20rem;
+  grid-template-rows: auto auto 1fr;
 `;
 
 const Main = styled.main`
@@ -23,7 +22,6 @@ function Layout() {
       <Main>
         <Outlet />
       </Main>
-      <Footer />
     </StyledLayout>
   );
 }

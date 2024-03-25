@@ -4,8 +4,12 @@ import { useLocation } from 'react-router-dom';
 import Products from '../ui/Products';
 
 const StyledCatalog = styled.div`
-  padding: 6rem 10rem;
+  padding: 6rem 8rem;
   padding-bottom: 4rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 2rem 3rem 4rem;
+  }
 `;
 
 const Heading = styled.h1`
@@ -16,6 +20,11 @@ const Heading = styled.h1`
 
   & span {
     text-transform: capitalize;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
   }
 `;
 

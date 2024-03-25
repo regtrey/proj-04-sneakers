@@ -21,6 +21,11 @@ const ProductImageContainer = styled.div`
   height: 65rem;
   width: 55rem;
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    height: 35rem;
+    width: 35rem;
+  }
 `;
 
 const ProductImage = styled(LazyLoadImage)`
@@ -34,6 +39,11 @@ const DetailsContainer = styled.div`
   width: 70rem;
   width: max-content;
   padding: 2rem;
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+    padding: 1rem 0;
+  }
 `;
 
 const ProductName = styled.h1`
@@ -68,6 +78,11 @@ const Container = styled.div`
     position: absolute;
     cursor: pointer;
     z-index: 2;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+    margin: 2rem 0;
   }
 `;
 
@@ -129,6 +144,10 @@ const SizeContainer = styled.div<IError>`
 
   ${(props) =>
     props.$sizeSelect === 'none' ? sizeError['none'] : sizeError['error']}
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 interface ISizeProps {
@@ -158,6 +177,10 @@ const Size = styled.div<ISizeProps>`
     position: absolute;
     cursor: pointer;
     z-index: 2;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 8rem;
   }
 `;
 

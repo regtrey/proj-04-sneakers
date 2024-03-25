@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { HiOutlineUser, HiOutlineBars3 } from 'react-icons/hi2';
 
 import Nav from './Nav';
+import AccountNav from './AccountNav';
+import AccountModal from './AccountModal';
 import { useUser } from '../features/auth/useUser';
-import { useSignout } from '../features/auth/useSignout';
-import { useState } from 'react';
 
 const StyledHeader = styled.header`
   padding: 0.5rem 4rem;
@@ -12,6 +14,12 @@ const StyledHeader = styled.header`
   justify-content: space-between;
 
   grid-row: 2 / 3;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    align-items: center;
+    position: relative;
+  }
 `;
 
 export const Logo = styled.h1`
@@ -20,93 +28,103 @@ export const Logo = styled.h1`
   letter-spacing: -3px;
 `;
 
-const AccountNav = styled.div`
-  background-color: var(--color-gray-100);
-  padding: 1.2rem 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1rem;
-  position: relative;
+const MobileNav = styled.div`
+  display: none;
 
-  grid-row: 1 / 2;
+  @media screen and (max-width: 768px) {
+    width: 7rem;
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
-const Signout = styled.button`
-  font-size: 1.25rem;
-  border: none;
+const AccountIcon = styled(HiOutlineUser)`
+  height: 2.5rem;
+  width: 2.5rem;
+  display: none;
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 
-const AccountLink = styled(Link)`
-  font-size: 1.25rem;
-  font-weight: 500;
-`;
+const NavIcon = styled(HiOutlineBars3)`
+  height: 2.75rem;
+  width: 2.75rem;
+  display: none;
+  cursor: pointer;
 
-const AccountName = styled.span`
-  font-size: 1.25rem;
-  font-weight: 500;
-  text-transform: capitalize;
-`;
-
-const AccountModal = styled.div`
-  height: max-content;
-  width: 15rem;
-  font-size: 1.5rem;
-  background-color: var(--color-gray-0);
-  border: 1px solid var(--color-gray-100);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  position: absolute;
-  bottom: -12rem;
-  z-index: 2;
-
-  & span {
-    padding: 1.5rem;
-
-    &:hover {
-      background-color: var(--color-gray-200);
-    }
+  @media screen and (max-width: 768px) {
+    display: block;
   }
 `;
 
 function Header() {
   const [show, setShow] = useState(false);
+  const [showNav, setShowNav] = useState(false);
 
-  const { user, isAuthenticated } = useUser();
-  const { signout } = useSignout();
+  const { isAuthenticated } = useUser();
 
   return (
     <>
-      <AccountNav>
-        {!isAuthenticated ? (
-          <AccountLink to="/signup">Sign Up</AccountLink>
-        ) : (
-          <>
-            <AccountName onMouseEnter={() => setShow((s) => !s)}>
-              Hi, {user?.user_metadata.name}
-            </AccountName>
-            <span>|</span>
-            <Signout onClick={() => signout()}>Sign out</Signout>
-            {show && (
-              <AccountModal onMouseLeave={() => setShow((s) => !s)}>
-                <span>
-                  <Link to="/account">Account</Link>
-                </span>
-                <span>
-                  <Link to="/orders">Orders</Link>
-                </span>
-              </AccountModal>
-            )}
-          </>
-        )}
-      </AccountNav>
+      <AccountNav />
       <StyledHeader>
         <Link to="/">
           <Logo>sneakers</Logo>
         </Link>
         <Nav />
+
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <AccountIcon
+            onClick={() => {
+              setShow((show) => !show);
+              setShowNav(false);
+            }}
+          />
+          {!isAuthenticated && show && (
+            <AccountModal
+              $modalType="accountNotAuthenticated"
+              setShow={setShow}
+              links={[
+                { field: 'Sign up', url: '/signup' },
+                { field: 'Sign in', url: '/signin' },
+              ]}
+            />
+          )}
+          {isAuthenticated && show && (
+            <AccountModal
+              $modalType="accountAuthenticated"
+              setShow={setShow}
+              links={[
+                { field: 'Account', url: '/account' },
+                { field: 'Orders', url: '/orders' },
+              ]}
+              fnLink={[{ field: 'Sign out', fn: 'signout' }]}
+            />
+          )}
+
+          <NavIcon
+            onClick={() => {
+              setShow(false);
+              setShowNav((showNav) => !showNav);
+            }}
+          />
+          {showNav && (
+            <AccountModal
+              $modalType="nav"
+              setShow={setShowNav}
+              links={[
+                { field: 'New & Featured', url: '/new-and-featured' },
+                { field: 'Men', url: '/mens' },
+                { field: 'Women', url: '/womens' },
+                { field: 'Kids', url: '/kids' },
+                { field: 'Sports', url: '/sports' },
+              ]}
+            />
+          )}
+        </MobileNav>
       </StyledHeader>
     </>
   );

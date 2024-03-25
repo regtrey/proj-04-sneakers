@@ -6,6 +6,11 @@ const StyledOrders = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
+
+  @media screen and (max-width: 768px) {
+    padding: 2rem;
+    gap: 2rem;
+  }
 `;
 
 const Heading = styled.h1`

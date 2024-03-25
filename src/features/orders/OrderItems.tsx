@@ -14,12 +14,20 @@ const StyledOrderItems = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    gap: 0;
+  }
 `;
 
 const DetailsSpan = styled.span`
   font-size: 2rem;
   font-weight: 500;
   text-transform: uppercase;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.85rem;
+  }
 `;
 
 const Empty = styled.div`

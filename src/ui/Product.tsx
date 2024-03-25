@@ -8,6 +8,10 @@ const StyledProduct = styled.div`
   height: max-content;
   margin-bottom: 2rem;
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 const ProductImage = styled(LazyLoadImage)`
@@ -15,6 +19,10 @@ const ProductImage = styled(LazyLoadImage)`
   width: 100%;
   object-fit: contain;
   display: block;
+
+  @media screen and (max-width: 768px) {
+    height: 15rem;
+  }
 `;
 
 const ProductDetails = styled.div`

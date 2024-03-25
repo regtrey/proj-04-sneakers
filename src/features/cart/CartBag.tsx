@@ -11,11 +11,20 @@ const StyledCartBag = styled.div`
   width: 40vw;
   overflow-y: scroll;
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    height: 47rem;
+    width: 90vw;
+  }
 `;
 
 const Heading = styled.h1`
   font-size: 4rem;
   font-weight: 500;
+
+  @media screen and (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const Empty = styled.div`

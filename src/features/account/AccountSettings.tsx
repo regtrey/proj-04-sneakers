@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { Button } from '../../ui/Button';
 import React, { useEffect, useState } from 'react';
+
 import { useUser } from '../auth/useUser';
 import { useUpdateUser } from './useUpdateUser';
 
+import { Button } from '../../ui/Button';
+
 const StyledAccountSettings = styled.form`
-  width: 70vw;
   width: 100%;
   background-color: var(--color-gray-0);
   border: 1px solid var(--color-gray-100);
@@ -15,6 +16,10 @@ const StyledAccountSettings = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -25,6 +30,15 @@ const InputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem 0 2rem;
+    padding-right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+  }
 `;
 
 const Label = styled.label`
@@ -38,6 +52,10 @@ const Input = styled.input`
   border: 1px solid var(--color-gray-200);
   border-radius: var(--border-radius-sm);
   padding: 1.5rem;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -65,6 +83,11 @@ function AccountSettings() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (password.length > 0 && password.length < 6) {
+      setInputError(true);
+      return;
+    }
 
     updateUser({ name, password });
     setName(user?.user_metadata.name);

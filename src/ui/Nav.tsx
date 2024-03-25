@@ -1,13 +1,17 @@
 import styled from 'styled-components';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { HiOutlineHeart, HiOutlineShoppingBag } from 'react-icons/hi2';
-import React, { useState } from 'react';
 
 const StyledNav = styled.nav`
   width: 60vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavLinkList = styled.ul`

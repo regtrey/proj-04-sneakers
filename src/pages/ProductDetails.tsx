@@ -7,6 +7,12 @@ const StyledProductDetails = styled.div`
   justify-content: center;
   gap: 4rem;
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    padding: 2rem;
+    flex-direction: column;
+    gap: 3rem;
+  }
 `;
 
 function ProductDetails() {

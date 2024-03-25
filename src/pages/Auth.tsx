@@ -26,6 +26,14 @@ const Form = styled.form`
       color: blue;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    width: 75vw;
+
+    & p {
+      margin-top: 1rem;
+    }
+  }
 `;
 
 const Label = styled.label`
