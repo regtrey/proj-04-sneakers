@@ -75,9 +75,17 @@ function Auth() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !password || password.length < 6) {
-      setHasError(true);
-      return;
+    if (currentPath === 'signup') {
+      if (!name || !email || !password || password.length < 6) {
+        setHasError(true);
+        return;
+      }
+    }
+    if (currentPath === 'signin') {
+      if (!email || !password) {
+        setHasError(true);
+        return;
+      }
     }
 
     setHasError(false);

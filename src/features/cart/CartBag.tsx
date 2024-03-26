@@ -37,13 +37,14 @@ const Empty = styled.div`
 `;
 
 function CartBag() {
-  const { userId } = useUser();
+  const { isAuthenticated, userId } = useUser();
   const { cartItems, userCartLoading } = useCart(userId);
 
   return (
     <StyledCartBag>
       <Heading>Bag</Heading>
-      {cartItems?.length === 0 && <Empty>Your cart is currently empty</Empty>}
+      {cartItems?.length === 0 ||
+        (!isAuthenticated && <Empty>Your cart is currently empty</Empty>)}
       {userCartLoading && <Spinner />}
       {cartItems
         ? cartItems.map((item, i) => <CartItem key={i} item={item} />)

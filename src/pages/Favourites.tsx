@@ -77,14 +77,15 @@ const Empty = styled.div`
 `;
 
 function Favourites() {
-  const { userId } = useUser();
+  const { isAuthenticated, userId } = useUser();
   const { favouriteItems } = useFavourites(userId);
 
   return (
     <StyledFavourites>
       <Heading>Favourites</Heading>
       <FavouritesContainer>
-        {favouriteItems?.length === 0 && <Empty>You have no favorites</Empty>}
+        {favouriteItems?.length === 0 ||
+          (!isAuthenticated && <Empty>You have no favorites</Empty>)}
         {favouriteItems?.map((item) => (
           <Product key={item.shoe_id}>
             <Link to={`/${item.categorySlug}/${item.slug}`}>
