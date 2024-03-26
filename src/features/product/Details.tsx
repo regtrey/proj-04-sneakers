@@ -18,7 +18,7 @@ import Spinner from '../../ui/Spinner';
 import SpinnerMini from '../../ui/SpinnerMini';
 
 const ProductImageContainer = styled.div`
-  height: 65rem;
+  height: 55rem;
   width: 55rem;
   position: relative;
 

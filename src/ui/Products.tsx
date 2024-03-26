@@ -10,11 +10,13 @@ const StyledProducts = styled.div`
   min-height: 100dvh;
   max-height: max-content;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(3, 36rem);
+  justify-content: space-between;
+  grid-row-gap: 2rem;
 
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 `;
 
