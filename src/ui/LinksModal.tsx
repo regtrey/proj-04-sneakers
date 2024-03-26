@@ -7,15 +7,15 @@ import { useSignout } from '../features/auth/useSignout';
 const modalType = {
   accountAuthenticated: css`
     width: 15rem;
-    bottom: -16rem;
+    bottom: -17.25rem;
   `,
   accountNotAuthenticated: css`
     width: 15rem;
-    bottom: -10.25rem;
+    bottom: -11.7rem;
   `,
   nav: css`
     width: 100%;
-    bottom: -27rem;
+    bottom: -28.5rem;
   `,
 };
 

@@ -17,6 +17,7 @@ const StyledHeader = styled.header`
   grid-row: 2 / 3;
 
   @media screen and (max-width: 768px) {
+    width: 100vw;
     padding: 0.5rem 1rem;
     align-items: center;
     position: relative;

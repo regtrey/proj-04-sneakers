@@ -4,7 +4,7 @@ const variant = {
   primary: css`
     background-color: #000;
     border: none;
-    color: var(--color-gray-0);
+    color: #fff;
 
     &:hover {
       background-color: #404040;
@@ -13,6 +13,7 @@ const variant = {
   secondary: css`
     background-color: var(--color-gray-0);
     border: 1.5px solid var(--color-gray-200);
+    color: #000;
 
     &:hover {
       border: 1.5px solid #000;

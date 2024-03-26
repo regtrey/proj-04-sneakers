@@ -10,6 +10,10 @@ const StyledCatalog = styled.div`
   @media screen and (max-width: 768px) {
     padding: 2rem 3rem 4rem;
   }
+
+  @media screen and (max-width: 410px) {
+    padding: 2rem 1rem 4rem;
+  }
 `;
 
 const Heading = styled.h1`

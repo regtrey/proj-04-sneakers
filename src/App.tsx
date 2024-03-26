@@ -15,6 +15,7 @@ import Orders from './pages/Orders';
 import GlobalStyles from './styles/GlobalStyles';
 import AuthProtect from './ui/AuthProtect';
 import ProtectedRoute from './ui/ProtectedRoute';
+import PageNotFound from './ui/PageNotFound';
 
 // Setting up react query
 const queryClient = new QueryClient({
@@ -88,6 +89,7 @@ function App() {
             </AuthProtect>
           }
         />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </QueryClientProvider>
   );

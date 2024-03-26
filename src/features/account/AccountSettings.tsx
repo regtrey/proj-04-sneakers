@@ -84,10 +84,7 @@ function AccountSettings() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (password.length > 0 && password.length < 6) {
-      setInputError(true);
-      return;
-    }
+    if (password.length > 0 && password.length < 6) return;
 
     updateUser({ name, password });
     setName(user?.user_metadata.name);

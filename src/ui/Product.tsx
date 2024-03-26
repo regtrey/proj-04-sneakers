@@ -10,6 +10,7 @@ const StyledProduct = styled.div`
   position: relative;
 
   @media screen and (max-width: 768px) {
+    width: 15.5rem;
     margin-bottom: 0;
   }
 `;
@@ -21,7 +22,7 @@ const ProductImage = styled(LazyLoadImage)`
   display: block;
 
   @media screen and (max-width: 768px) {
-    height: 15rem;
+    height: 15.5rem;
   }
 `;
 
