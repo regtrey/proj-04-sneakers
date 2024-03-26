@@ -23,7 +23,7 @@ interface IModal {
   $modalType?: 'accountAuthenticated' | 'accountNotAuthenticated' | 'nav';
 }
 
-const StyledAccountModal = styled.div<IModal>`
+const StyledLinksModal = styled.div<IModal>`
   height: max-content;
   width: 15rem;
   font-size: 1.5rem;
@@ -61,23 +61,18 @@ interface FunctionLink {
   fn: string;
 }
 
-interface AccountModalProps {
+interface LinksModalProps {
   $modalType?: 'accountAuthenticated' | 'accountNotAuthenticated' | 'nav';
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   links: AccountLinks[];
   fnLink?: FunctionLink[];
 }
 
-function AccountModal({
-  $modalType,
-  setShow,
-  links,
-  fnLink,
-}: AccountModalProps) {
+function LinksModal({ $modalType, setShow, links, fnLink }: LinksModalProps) {
   const { signout } = useSignout();
 
   return (
-    <StyledAccountModal
+    <StyledLinksModal
       $modalType={$modalType}
       onMouseLeave={() => setShow((show) => !show)}
     >
@@ -95,8 +90,8 @@ function AccountModal({
             {link.field}
           </span>
         ))}
-    </StyledAccountModal>
+    </StyledLinksModal>
   );
 }
 
-export default AccountModal;
+export default LinksModal;

@@ -43,30 +43,44 @@ const Label = styled.label`
   margin-top: 2rem;
 `;
 
-const Input = styled.input`
+interface InputProps {
+  $hasError: boolean;
+}
+
+const Input = styled.input<InputProps>`
   width: 100%;
   font-size: 1.5rem;
   margin: 2rem 0 0.5rem;
   padding: 1.75rem 1.5rem;
-  border: 1px solid #000;
+  border: ${(props) => (props.$hasError ? '1px solid red' : '1px solid #000')};
   border-radius: var(--border-radius-md);
+`;
+
+const ErrorMessage = styled.span`
+  font-size: 1.3rem;
+  color: red;
 `;
 
 function Auth() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   const location = useLocation();
   const currentPath = location.pathname.replace('/', '');
 
-  const { login, loginLoading } = useLogin();
-  const { signup, signupLoading } = useSignup();
+  const { login, loginLoading, loginError } = useLogin();
+  const { signup, signupLoading, signupError } = useSignup();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) return;
+    if (!name || !email || !password || password.length < 6) {
+      setHasError(true);
+      return;
+    }
 
+    setHasError(false);
     if (currentPath === 'signin') {
       login({ email, password });
     }
@@ -87,22 +101,41 @@ function Auth() {
         </Label>
         {currentPath === 'signup' && (
           <Input
-            placeholder="Full Name"
+            $hasError={hasError}
+            placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         )}
         <Input
+          $hasError={hasError}
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
+          $hasError={hasError}
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {currentPath === 'signup' && hasError && (
+          <ErrorMessage>
+            {name && email && password.length < 6
+              ? 'Password must be at least 6 characters'
+              : 'Please fill up the required fields.'}
+          </ErrorMessage>
+        )}
+        {currentPath === 'signup' && signupError ? (
+          <ErrorMessage>
+            There was an error while signing up. Please try again.
+          </ErrorMessage>
+        ) : null}
+        {(currentPath === 'signin' && loginError) ||
+        (currentPath === 'signin' && hasError) ? (
+          <ErrorMessage>Incorrect email or password</ErrorMessage>
+        ) : null}
         {currentPath === 'signup' && (
           <p>
             Already have an account? <Link to="/signin">Sign in</Link>.

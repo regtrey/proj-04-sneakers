@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { useUser } from '../features/auth/useUser';
 import { useSignout } from '../features/auth/useSignout';
-import AccountModal from './AccountModal';
+
+import LinksModal from './LinksModal';
 
 const StyledAccountNav = styled.div`
   background-color: var(--color-gray-100);
@@ -52,12 +53,12 @@ function AccountNav() {
       ) : (
         <>
           <AccountName onMouseEnter={() => setShow((s) => !s)}>
-            Hi, {user?.user_metadata.name}
+            Hi, {user?.user_metadata.name.split(' ').at(0)}
           </AccountName>
           <span>|</span>
           <Signout onClick={() => signout()}>Sign out</Signout>
           {show && (
-            <AccountModal
+            <LinksModal
               $modalType="accountAuthenticated"
               setShow={setShow}
               links={[

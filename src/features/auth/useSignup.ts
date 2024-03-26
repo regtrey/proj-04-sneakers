@@ -6,7 +6,11 @@ import { userSignup } from '../../services/apiAuth';
 export function useSignup() {
   const navigate = useNavigate();
 
-  const { mutate: signup, isLoading: signupLoading } = useMutation({
+  const {
+    mutate: signup,
+    isLoading: signupLoading,
+    error: signupError,
+  } = useMutation({
     mutationFn: ({
       name,
       email,
@@ -24,5 +28,5 @@ export function useSignup() {
     },
   });
 
-  return { signup, signupLoading };
+  return { signup, signupLoading, signupError };
 }

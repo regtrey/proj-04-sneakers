@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HiOutlineUser, HiOutlineBars3 } from 'react-icons/hi2';
 
+import { useUser } from '../features/auth/useUser';
+
 import Nav from './Nav';
 import AccountNav from './AccountNav';
-import AccountModal from './AccountModal';
-import { useUser } from '../features/auth/useUser';
+import LinksModal from './LinksModal';
 
 const StyledHeader = styled.header`
   padding: 0.5rem 4rem;
@@ -84,7 +85,7 @@ function Header() {
             }}
           />
           {!isAuthenticated && show && (
-            <AccountModal
+            <LinksModal
               $modalType="accountNotAuthenticated"
               setShow={setShow}
               links={[
@@ -94,7 +95,7 @@ function Header() {
             />
           )}
           {isAuthenticated && show && (
-            <AccountModal
+            <LinksModal
               $modalType="accountAuthenticated"
               setShow={setShow}
               links={[
@@ -112,7 +113,7 @@ function Header() {
             }}
           />
           {showNav && (
-            <AccountModal
+            <LinksModal
               $modalType="nav"
               setShow={setShowNav}
               links={[
