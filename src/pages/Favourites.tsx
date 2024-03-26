@@ -5,6 +5,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { useUser } from '../features/auth/useUser';
 import { useFavourites } from '../features/favourites/useFavourites';
+import Spinner from '../ui/Spinner';
 
 const StyledFavourites = styled.div`
   padding: 6rem 8rem;
@@ -78,14 +79,21 @@ const Empty = styled.div`
 
 function Favourites() {
   const { isAuthenticated, userId } = useUser();
-  const { favouriteItems } = useFavourites(userId);
+  const { favouriteItems, favouriteItemsLoading } = useFavourites(userId);
 
   return (
     <StyledFavourites>
       <Heading>Favourites</Heading>
       <FavouritesContainer>
-        {favouriteItems?.length === 0 ||
-          (!isAuthenticated && <Empty>You have no favorites</Empty>)}
+        {favouriteItemsLoading && (
+          <Empty>
+            <Spinner />
+          </Empty>
+        )}
+        {(!isAuthenticated && !favouriteItemsLoading) ||
+        favouriteItems?.length === 0 ? (
+          <Empty>You have no favorites</Empty>
+        ) : null}
         {favouriteItems?.map((item) => (
           <Product key={item.shoe_id}>
             <Link to={`/${item.categorySlug}/${item.slug}`}>

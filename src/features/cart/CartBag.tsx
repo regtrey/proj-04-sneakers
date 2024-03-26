@@ -43,9 +43,14 @@ function CartBag() {
   return (
     <StyledCartBag>
       <Heading>Bag</Heading>
-      {cartItems?.length === 0 ||
-        (!isAuthenticated && <Empty>Your cart is currently empty</Empty>)}
-      {userCartLoading && <Spinner />}
+      {userCartLoading && (
+        <Empty>
+          <Spinner />
+        </Empty>
+      )}
+      {(!isAuthenticated && !userCartLoading) || cartItems?.length === 0 ? (
+        <Empty>Your cart is currently empty</Empty>
+      ) : null}
       {cartItems
         ? cartItems.map((item, i) => <CartItem key={i} item={item} />)
         : null}
