@@ -14,12 +14,15 @@ export async function getShoes(currentPath: string, searchQuery?: string) {
 
   if (currentPath === 'results' && searchQuery) {
     // If the query contains a space, it needs to be separated by an operator
-    const query = searchQuery.split(' ');
+    // const query = searchQuery.split(' ');
 
     ({ data, error } = await supabase
       .from('shoes')
       .select('*')
-      .textSearch('name', `${query.join(' & ')}`));
+      .textSearch('name', searchQuery, {
+        type: 'websearch',
+      }));
+    // .textSearch('name', `${query.join(' & ')}`));
   }
 
   if (

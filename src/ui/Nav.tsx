@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { HiOutlineHeart, HiOutlineShoppingBag } from 'react-icons/hi2';
+
+import Search from './Search';
 
 const StyledNav = styled.nav`
   width: 60vw;
@@ -59,17 +60,6 @@ const NavMiscButton = styled(NavLink)`
   }
 `;
 
-const Search = styled.input`
-  height: 4rem;
-  width: 20rem;
-  font-size: 1.5rem;
-  letter-spacing: 0.5px;
-  background-color: var(--color-gray-100);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  padding: 0.5rem 1.25rem;
-`;
-
 interface HeaderLink {
   field: string;
   url: string;
@@ -84,19 +74,6 @@ const links: HeaderLink[] = [
 ];
 
 function Nav() {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const navigate = useNavigate();
-
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!searchQuery || searchQuery.length <= 2) return;
-
-    navigate(`/results?query=${searchQuery}`);
-    setSearchQuery('');
-  };
-
   return (
     <StyledNav>
       <NavLinkList>
@@ -108,15 +85,7 @@ function Nav() {
       </NavLinkList>
 
       <NavMisc>
-        <form onSubmit={handleSearch}>
-          <Search
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </form>
-
+        <Search />
         <NavMiscButton to="/favourites">
           <HiOutlineHeart />
         </NavMiscButton>

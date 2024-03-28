@@ -3,19 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useSignout } from '../features/auth/useSignout';
+import Search from './Search';
 
 const modalType = {
   accountAuthenticated: css`
     width: 15rem;
-    bottom: -17.25rem;
+    bottom: -28.5rem;
   `,
   accountNotAuthenticated: css`
     width: 15rem;
-    bottom: -11.7rem;
+    bottom: -22.8rem;
   `,
   nav: css`
     width: 100%;
-    bottom: -28.5rem;
+    bottom: -33.2rem;
   `,
 };
 
@@ -51,6 +52,14 @@ const StyledLinksModal = styled.div<IModal>`
   }
 `;
 
+const ModalLink = styled(Link)`
+  padding: 1.5rem;
+
+  &:hover {
+    background-color: var(--color-gray-200);
+  }
+`;
+
 interface AccountLinks {
   field: string;
   url: string;
@@ -76,10 +85,11 @@ function LinksModal({ $modalType, setShow, links, fnLink }: LinksModalProps) {
       $modalType={$modalType}
       onMouseLeave={() => setShow((show) => !show)}
     >
+      {$modalType === 'nav' && <Search />}
       {links.map((link) => (
-        <span key={link.field}>
-          <Link to={link.url}>{link.field}</Link>
-        </span>
+        <ModalLink key={link.field} to={link.url}>
+          {link.field}
+        </ModalLink>
       ))}
       {fnLink &&
         fnLink.map((link) => (

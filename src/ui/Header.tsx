@@ -90,6 +90,8 @@ function Header() {
               $modalType="accountNotAuthenticated"
               setShow={setShow}
               links={[
+                { field: 'Cart', url: '/cart' },
+                { field: 'Favourites', url: '/favourites' },
                 { field: 'Sign up', url: '/signup' },
                 { field: 'Sign in', url: '/signin' },
               ]}
@@ -102,6 +104,8 @@ function Header() {
               links={[
                 { field: 'Account', url: '/account' },
                 { field: 'Orders', url: '/orders' },
+                { field: 'Cart', url: '/cart' },
+                { field: 'Favourites', url: '/favourites' },
               ]}
               fnLink={[{ field: 'Sign out', fn: 'signout' }]}
             />

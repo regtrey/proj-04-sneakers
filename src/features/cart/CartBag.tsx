@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useUser } from '../auth/useUser';
 import { useCart } from './useCart';
 
+import { Heading } from '../../ui/Heading';
 import CartItem from './CartItem';
 import Spinner from '../../ui/Spinner';
 
@@ -13,17 +14,9 @@ const StyledCartBag = styled.div`
   position: relative;
 
   @media screen and (max-width: 768px) {
-    height: 47rem;
+    height: 40rem;
+    max-height: 47rem;
     width: 90vw;
-  }
-`;
-
-const Heading = styled.h1`
-  font-size: 4rem;
-  font-weight: 500;
-
-  @media screen and (max-width: 768px) {
-    font-size: 3rem;
   }
 `;
 

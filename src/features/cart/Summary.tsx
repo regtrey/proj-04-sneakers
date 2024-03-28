@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../auth/useUser';
 import { useCart } from './useCart';
 
+import { Heading } from '../../ui/Heading';
 import { Button } from '../../ui/Button';
 import { ItemPrice } from './CartItem';
 import CheckoutItemsContainer from '../checkout/CheckoutItemsContainer';
@@ -15,11 +16,6 @@ const StyledSummary = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-`;
-
-const Heading = styled.h1`
-  font-size: 4rem;
-  font-weight: 500;
 `;
 
 const SubTotal = styled.div`

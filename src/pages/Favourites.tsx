@@ -5,6 +5,8 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { useUser } from '../features/auth/useUser';
 import { useFavourites } from '../features/favourites/useFavourites';
+
+import { Heading } from '../ui/Heading';
 import Spinner from '../ui/Spinner';
 
 const StyledFavourites = styled.div`
@@ -12,11 +14,11 @@ const StyledFavourites = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
-`;
 
-const Heading = styled.h1`
-  font-size: 3rem;
-  font-weight: 500;
+  @media screen and (max-width: 768px) {
+    padding: 2rem;
+    gap: 2rem;
+  }
 `;
 
 const FavouritesContainer = styled.div`
@@ -92,7 +94,7 @@ function Favourites() {
         )}
         {(!isAuthenticated && !favouriteItemsLoading) ||
         favouriteItems?.length === 0 ? (
-          <Empty>You have no favorites</Empty>
+          <Empty>You don't have any favourites</Empty>
         ) : null}
         {favouriteItems?.map((item) => (
           <Product key={item.shoe_id}>
