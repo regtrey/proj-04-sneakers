@@ -18,19 +18,19 @@ import Spinner from '../../ui/Spinner';
 import SpinnerMini from '../../ui/SpinnerMini';
 
 const ProductImageContainer = styled.div`
-  height: 55rem;
   width: 55rem;
+  height: 55rem;
   position: relative;
 
   @media screen and (max-width: 768px) {
+    width: 90vw;
     height: 35rem;
-    width: 35rem;
   }
 `;
 
 const ProductImage = styled(LazyLoadImage)`
-  height: 100%;
   width: 100%;
+  height: 100%;
   border-radius: var(--border-radius-md);
   display: block;
 `;
@@ -147,6 +147,9 @@ const SizeContainer = styled.div<IError>`
 
   @media screen and (max-width: 768px) {
     width: 90vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 `;
 
@@ -180,7 +183,11 @@ const Size = styled.div<ISizeProps>`
   }
 
   @media screen and (max-width: 768px) {
-    width: 8rem;
+    width: 11rem;
+  }
+
+  @media screen and (max-width: 410px) {
+    width: 10rem;
   }
 `;
 

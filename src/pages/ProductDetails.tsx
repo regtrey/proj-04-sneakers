@@ -9,8 +9,10 @@ const StyledProductDetails = styled.div`
   position: relative;
 
   @media screen and (max-width: 768px) {
-    padding: 2rem;
+    padding: 2rem 0;
+    padding-bottom: 4rem;
     flex-direction: column;
+    align-items: center;
     gap: 3rem;
   }
 `;
