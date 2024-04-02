@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useUser } from '../auth/useUser';
 import { useCart } from '../cart/useCart';
@@ -68,16 +69,20 @@ const InfoContainer = styled.div<ICustom>`
   }
 `;
 
-function ContactInfo() {
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [address, setAddress] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
+interface FormValues {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  country: string;
+  city: string;
+  postalCode: string;
+}
 
+function ContactInfo() {
   const navigate = useNavigate();
+  const { register, setValue, handleSubmit, reset } = useForm<FormValues>();
+
   const { isAuthenticated, userId, user } = useUser();
   const { cartItems } = useCart(userId);
   const { addOrderItem, addOrderItemLoading } = useAddCheckoutOrder();
@@ -90,16 +95,22 @@ function ContactInfo() {
     if (user) {
       const userName = user.user_metadata.name.split(' ');
 
-      setEmail(user?.email || '');
-      setFirstName(userName.at(0));
+      setValue('email', user?.email || '');
+      setValue('firstName', userName.at(0));
 
-      if (userName.length > 1) setLastName(userName.at(-1));
+      if (userName.length > 1) setValue('lastName', userName.at(-1));
     }
-  }, [isAuthenticated, user, cartItems, navigate]);
+  }, [isAuthenticated, user, cartItems, navigate, setValue]);
 
-  const handleOrder = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleOrder: SubmitHandler<FormValues> = ({
+    email,
+    firstName,
+    lastName,
+    address,
+    country,
+    city,
+    postalCode,
+  }) => {
     if (!userId || !cartItems) return;
 
     const orderItem: IOrder = {
@@ -115,85 +126,59 @@ function ContactInfo() {
     };
 
     if (cartItems.length > 0) {
-      addOrderItem(orderItem);
+      addOrderItem(orderItem, {
+        onSettled: () => reset(),
+      });
       deleteOrderItem(userId);
     }
   };
 
   const handleCancel = () => {
-    setEmail('');
-    setFirstName('');
-    setLastName('');
-    setAddress('');
-    setCountry('');
-    setCity('');
-    setPostalCode('');
+    reset();
   };
 
   return (
     <StyledContactInfo>
       <Heading>Checkout</Heading>
-      <Form onSubmit={handleOrder}>
+      <Form onSubmit={handleSubmit(handleOrder)}>
         <Label>Contact information</Label>
+
         <InfoContainer>
-          <Input
-            required
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <Input required type="email" {...register('email')} />
           <span>Email</span>
         </InfoContainer>
 
         <Label>Shipping address</Label>
         <InfoContainer $custom="grid-column: 1 / 3;">
-          <Input
-            required
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
+          <Input required {...register('firstName')} />
           <span>First name</span>
         </InfoContainer>
+
         <InfoContainer $custom="grid-column: 3 / 5;">
-          <Input
-            required
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
+          <Input required {...register('lastName')} />
           <span>Last name</span>
         </InfoContainer>
+
         <InfoContainer>
-          <Input
-            required
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
+          <Input required {...register('address')} />
           <span>Address</span>
         </InfoContainer>
+
         <InfoContainer>
-          <Input
-            required
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-          />
+          <Input required {...register('country')} />
           <span>Country</span>
         </InfoContainer>
+
         <InfoContainer $custom="grid-column: 1 / 3;">
-          <Input
-            required
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
+          <Input required {...register('city')} />
           <span>City</span>
         </InfoContainer>
+
         <InfoContainer $custom="grid-column: 3 / 5;">
-          <Input
-            required
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-          />
+          <Input required {...register('postalCode')} />
           <span>Postal code</span>
         </InfoContainer>
+
         <Button
           type="reset"
           $variant="secondary"

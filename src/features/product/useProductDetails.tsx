@@ -36,6 +36,7 @@ export function useProductDetails() {
     if (curFavItem) {
       setIsFav(curFavItem?.isFavourite);
       searchParams.set('size', curFavItem?.selectedSize);
+      searchParams.set('style', curFavItem?.selectedStyle);
       setSearchParams(searchParams);
     }
     if (!curFavItem) {

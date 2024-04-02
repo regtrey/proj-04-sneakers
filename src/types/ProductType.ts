@@ -26,6 +26,7 @@ export interface ICart {
   color: string;
   sizes: string[];
   selectedSize: number;
+  selectedStyle?: number;
   image: string;
   alt: string;
   placeholder: string;

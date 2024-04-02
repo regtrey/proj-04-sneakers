@@ -157,6 +157,7 @@ function ProductSpecs() {
       color: colors[currentSelectedStyle - 1],
       sizes,
       selectedSize: currentSelectedSize,
+      selectedStyle: currentSelectedStyle,
       image: image[currentSelectedStyle - 1],
       alt,
       placeholder: image[currentSelectedStyle - 1],
