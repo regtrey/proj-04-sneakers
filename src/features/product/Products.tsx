@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
-import { useShoes } from '../features/useShoes';
+import { useShoes } from '../useShoes';
 
-import { Heading } from './Heading';
+import { Heading } from '../../ui/Heading';
 import Product from './Product';
-import Spinner from './Spinner';
+import Spinner from '../../ui/Spinner';
 
 const StyledProducts = styled.div`
   height: max-content;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Products from '../ui/Products';
+import Products from '../features/product/Products';
 
 const StyledResults = styled.div`
   padding: 6rem 10rem;

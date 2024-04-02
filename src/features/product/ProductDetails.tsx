@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Details from '../features/product/Details';
+import Details from './Details';
 
 const StyledProductDetails = styled.div`
   padding: 6rem 0;

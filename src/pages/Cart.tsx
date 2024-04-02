@@ -11,7 +11,6 @@ const StyledCart = styled.div`
 
   @media screen and (min-width: 768px) and (max-width: 850px) {
     padding: 2rem 0 4rem;
-    /* padding-bottom: 4rem; */
     flex-direction: column;
     align-items: center;
     gap: 2rem;

@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import Layout from './ui/Layout';
 import Catalog from './pages/Catalog';
-import ProductDetails from './pages/ProductDetails';
+import ProductDetails from './features/product/ProductDetails';
 import Favourites from './pages/Favourites';
 import Cart from './pages/Cart';
 import Results from './pages/Results';

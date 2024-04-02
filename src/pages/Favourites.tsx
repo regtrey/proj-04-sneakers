@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Heading } from '../ui/Heading';
-import FavItems from '../ui/FavItems';
+import FavItems from '../features/favourites/FavItems';
 
 const StyledFavourites = styled.div`
   padding: 6rem 8rem;

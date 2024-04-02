@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-import { useUser } from '../features/auth/useUser';
-import { useFavourites } from '../features/favourites/useFavourites';
+import { useUser } from '../auth/useUser';
+import { useFavourites } from './useFavourites';
 
-import Spinner from './Spinner';
+import Spinner from '../../ui/Spinner';
 
 const StyledFavItems = styled.div`
   height: max-content;

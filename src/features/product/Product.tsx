@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-import { IProduct } from '../types/ProductType';
+import { IProduct } from '../../types/ProductType';
 
 const StyledProduct = styled.div`
   height: max-content;
