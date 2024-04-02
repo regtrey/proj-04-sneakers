@@ -26,7 +26,7 @@ const StyledCartBag = styled.div`
   }
 
   @media screen and (max-width: 360px) {
-    width: 87vw;
+    width: 89vw;
     height: 32rem;
     max-height: 47rem;
   }

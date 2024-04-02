@@ -33,8 +33,8 @@ const ItemImage = styled(LazyLoadImage)`
   background-color: var(--color-gray-300);
 
   @media screen and (max-width: 360px) {
-    width: 12.5rem;
-    height: 12.5rem;
+    width: 12.25rem;
+    height: 12.25rem;
   }
 `;
 
