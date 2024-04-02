@@ -8,10 +8,11 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useUser } from '../auth/useUser';
 import { useUpdateCartItem } from './useUpdateCartItem';
 import { useDeleteCartItem } from './useDeleteCartItem';
-import { ICart } from '../../types/ProductType';
 import { useAddFavourite } from '../favourites/useAddFavourite';
 import { useDeleteFavourite } from '../favourites/useDeleteFavourite';
 import { useFavourite } from '../favourites/useFavourite';
+
+import { ICart } from '../../types/ProductType';
 
 const StyledCartItem = styled.div`
   height: max-content;
@@ -66,6 +67,10 @@ const Select = styled.select`
   color: var(--color-gray-500);
   margin: 0 1rem;
   padding: 0 0.5rem;
+
+  &:first-of-type {
+    margin: 0.5rem 0 0.25rem;
+  }
 `;
 
 export const ItemPrice = styled.span`
@@ -91,6 +96,7 @@ const ActionButton = styled.button`
   & svg {
     height: 2.4rem;
     width: 2.4rem;
+    color: #000;
   }
 
   &:first-of-type {
