@@ -24,6 +24,12 @@ const StyledCartBag = styled.div`
     height: 30rem;
     max-height: 47rem;
   }
+
+  @media screen and (max-width: 360px) {
+    width: 87vw;
+    height: 32rem;
+    max-height: 47rem;
+  }
 `;
 
 const Empty = styled.div`

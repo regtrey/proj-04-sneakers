@@ -24,13 +24,18 @@ const StyledCartItem = styled.div`
 `;
 
 const ItemImage = styled(LazyLoadImage)`
-  height: 16.5rem;
   width: 16.5rem;
+  height: 16.5rem;
   object-position: center;
   object-fit: cover;
   display: block;
   margin-right: 1rem;
   background-color: var(--color-gray-300);
+
+  @media screen and (max-width: 360px) {
+    width: 12.5rem;
+    height: 12.5rem;
+  }
 `;
 
 const ItemDetailsContainer = styled.div`

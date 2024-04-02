@@ -20,6 +20,10 @@ const StyledSummary = styled.div`
   @media screen and (min-width: 768px) and (max-width: 850px) {
     width: 90vw;
   }
+
+  @media screen and (max-width: 360px) {
+    width: 87vw;
+  }
 `;
 
 const SubTotal = styled.div`
