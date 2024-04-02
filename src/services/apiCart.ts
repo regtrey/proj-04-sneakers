@@ -1,4 +1,4 @@
-import supabase from './supabase';
+import supabase from './spb/dir/supabase';
 import { ICart } from '../types/ProductType';
 
 export async function getCart(userId: string | undefined) {

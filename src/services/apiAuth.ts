@@ -1,4 +1,4 @@
-import supabase from './supabase';
+import supabase from './spb/dir/supabase';
 
 export async function userSignup({
   name,

@@ -1,4 +1,4 @@
-import supabase from './supabase';
+import supabase from './spb/dir/supabase';
 import { IOrder } from '../types/ProductType';
 
 export async function getOrder(userId: string | undefined) {
