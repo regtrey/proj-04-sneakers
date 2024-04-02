@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { HiOutlineUser, HiOutlineBars3 } from 'react-icons/hi2';
+import { Link, NavLink } from 'react-router-dom';
+import {
+  HiOutlineUser,
+  HiOutlineShoppingBag,
+  HiOutlineBars3,
+} from 'react-icons/hi2';
 
 import { useUser } from '../features/auth/useUser';
 
@@ -16,7 +20,14 @@ const StyledHeader = styled.header`
 
   grid-row: 2 / 3;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    width: 100vw;
+    padding: 1rem;
+    align-items: center;
+    position: relative;
+  }
+
+  @media screen and (max-width: 767px) {
     width: 100vw;
     padding: 0.5rem 1rem;
     align-items: center;
@@ -33,21 +44,21 @@ export const Logo = styled.h1`
 const MobileNav = styled.div`
   display: none;
 
-  @media screen and (max-width: 768px) {
-    width: 7rem;
+  & svg {
+    height: 2.5rem;
+    width: 2.5rem;
+    display: none;
+    cursor: pointer;
+
+    @media screen and (max-width: 850px) {
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 10rem;
     display: flex;
     justify-content: space-between;
-  }
-`;
-
-const AccountIcon = styled(HiOutlineUser)`
-  height: 2.5rem;
-  width: 2.5rem;
-  display: none;
-  cursor: pointer;
-
-  @media screen and (max-width: 768px) {
-    display: block;
   }
 `;
 
@@ -57,7 +68,7 @@ const NavIcon = styled(HiOutlineBars3)`
   display: none;
   cursor: pointer;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     display: block;
   }
 `;
@@ -79,18 +90,20 @@ function Header() {
 
         {/* Mobile Navigation */}
         <MobileNav>
-          <AccountIcon
+          <HiOutlineUser
             onClick={() => {
               setShow((show) => !show);
               setShowNav(false);
             }}
           />
+          <NavLink to="/cart">
+            <HiOutlineShoppingBag />
+          </NavLink>
           {!isAuthenticated && show && (
             <LinksModal
               $modalType="accountNotAuthenticated"
               setShow={setShow}
               links={[
-                { field: 'Cart', url: '/cart' },
                 { field: 'Favourites', url: '/favourites' },
                 { field: 'Sign up', url: '/signup' },
                 { field: 'Sign in', url: '/signin' },
@@ -104,7 +117,6 @@ function Header() {
               links={[
                 { field: 'Account', url: '/account' },
                 { field: 'Orders', url: '/orders' },
-                { field: 'Cart', url: '/cart' },
                 { field: 'Favourites', url: '/favourites' },
               ]}
               fnLink={[{ field: 'Sign out', fn: 'signout' }]}

@@ -13,10 +13,16 @@ const StyledCartBag = styled.div`
   overflow-y: scroll;
   position: relative;
 
-  @media screen and (max-width: 768px) {
-    height: 40rem;
-    max-height: 47rem;
+  @media screen and (min-width: 768px) and (max-width: 850px) {
     width: 90vw;
+    height: 40rem;
+    max-height: 55rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 90vw;
+    height: 30rem;
+    max-height: 47rem;
   }
 `;
 

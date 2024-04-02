@@ -8,18 +8,18 @@ import { useAddCheckoutOrder } from './useAddCheckoutOrder';
 import { useDeleteCheckoutOrder } from './useDeleteCheckoutOrder';
 
 import { IOrder } from '../../types/ProductType';
+import { Heading } from '../../ui/Heading';
 import { Button } from '../../ui/Button';
 import SpinnerMini from '../../ui/SpinnerMini';
 
 const StyledContactInfo = styled.div`
   height: 72rem;
   width: 40vw;
-`;
 
-const Heading = styled.h1`
-  font-size: 4rem;
-  font-weight: 500;
-  margin-bottom: 2rem;
+  @media screen and (max-width: 850px) {
+    height: 100%;
+    width: 90vw;
+  }
 `;
 
 const Form = styled.form`
@@ -43,6 +43,11 @@ const Input = styled.input`
   padding: 2rem 1.5rem;
   border: 1px solid #000;
   border-radius: var(--border-radius-md);
+
+  @media screen and (max-width: 850px) {
+    font-size: 1.75rem;
+    padding: 2.25rem 1.5rem 1rem;
+  }
 `;
 
 interface ICustom {

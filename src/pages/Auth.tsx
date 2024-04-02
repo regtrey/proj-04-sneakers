@@ -13,6 +13,18 @@ const StyledAuth = styled.div`
   padding: 6rem 0;
   display: flex;
   justify-content: center;
+
+  @media screen and (min-width: 768px) and (max-width: 800px) {
+    padding: 8rem 0;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 6rem 0;
+  }
+
+  @media screen and (max-width: 350px) {
+    padding: 2rem 0;
+  }
 `;
 
 const Form = styled.form`
@@ -27,7 +39,15 @@ const Form = styled.form`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    width: 65vw;
+
+    & p {
+      margin-top: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
     width: 75vw;
 
     & p {

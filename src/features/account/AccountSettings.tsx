@@ -7,7 +7,7 @@ import { useUpdateUser } from './useUpdateUser';
 import { Button } from '../../ui/Button';
 
 const StyledAccountSettings = styled.form`
-  width: 100%;
+  width: 90vw;
   background-color: var(--color-gray-0);
   border: 1px solid var(--color-gray-100);
   border-radius: var(--border-radius-md);
@@ -16,10 +16,6 @@ const StyledAccountSettings = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-
-  @media screen and (max-width: 768px) {
-    width: 90vw;
-  }
 `;
 
 const InputContainer = styled.div`
@@ -31,7 +27,7 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     padding: 1rem 0 2rem;
     padding-right: 0;
     flex-direction: column;
@@ -53,7 +49,7 @@ const Input = styled.input`
   border-radius: var(--border-radius-sm);
   padding: 1.5rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     width: 100%;
   }
 `;

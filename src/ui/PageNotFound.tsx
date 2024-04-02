@@ -5,12 +5,11 @@ import { Button } from './Button';
 
 const StyledPageNotFound = styled.div`
   height: 100dvh;
-  font-family: 'Open Sans', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     flex-direction: column;
   }
 `;
@@ -18,9 +17,10 @@ const StyledPageNotFound = styled.div`
 const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     gap: 1.5rem;
     align-items: center;
   }
@@ -31,7 +31,7 @@ const ErrorMessage = styled.h1`
   font-weight: 500;
   text-align: center;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     font-size: 3rem;
     text-align: center;
   }
@@ -47,7 +47,12 @@ function PageNotFound() {
           Whoops! <br />
           Page not found
         </ErrorMessage>
-        <Button $variant="primary" $size="md" onClick={() => navigate('/')}>
+        <Button
+          $variant="primary"
+          $size="md"
+          $custom="width: 15rem;"
+          onClick={() => navigate('/')}
+        >
           Go back
         </Button>
       </ErrorContainer>

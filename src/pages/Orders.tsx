@@ -7,7 +7,12 @@ const StyledOrders = styled.div`
   flex-direction: column;
   gap: 4rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    padding: 3rem;
+    gap: 2rem;
+  }
+
+  @media screen and (max-width: 767px) {
     padding: 2rem;
     gap: 2rem;
   }

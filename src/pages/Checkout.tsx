@@ -8,6 +8,18 @@ const StyledCheckout = styled.div`
   display: flex;
   justify-content: center;
   gap: 6rem;
+
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    padding: 3rem;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 2rem;
+    flex-direction: column;
+    gap: 2rem;
+  }
 `;
 
 function Checkout() {

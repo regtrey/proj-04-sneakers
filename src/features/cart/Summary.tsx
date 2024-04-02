@@ -16,6 +16,10 @@ const StyledSummary = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    width: 90vw;
+  }
 `;
 
 const SubTotal = styled.div`

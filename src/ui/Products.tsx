@@ -16,9 +16,23 @@ const StyledProducts = styled.div`
   justify-content: space-between;
   gap: 4rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 801px) and (max-width: 850px) {
+    padding: 0 5rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 800px) {
+    padding: 0 4rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+  }
+
+  @media screen and (max-width: 767px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: max-content 1fr;
+    grid-template-rows: repeat(2, max-content);
     gap: 2rem;
   }
 `;

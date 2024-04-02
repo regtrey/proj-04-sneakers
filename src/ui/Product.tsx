@@ -9,6 +9,11 @@ const StyledProduct = styled.div`
   margin-bottom: 2rem;
   position: relative;
 
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    width: 15.5rem;
+    margin-bottom: 0;
+  }
+
   @media screen and (max-width: 768px) {
     width: 15.5rem;
     margin-bottom: 0;
@@ -20,6 +25,10 @@ const ProductImage = styled(LazyLoadImage)`
   width: 100%;
   object-fit: contain;
   display: block;
+
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    height: 15.5rem;
+  }
 
   @media screen and (max-width: 768px) {
     height: 15.5rem;

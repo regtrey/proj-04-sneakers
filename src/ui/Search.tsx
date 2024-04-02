@@ -12,7 +12,7 @@ const StyledSearch = styled.input`
   border-radius: var(--border-radius-sm);
   padding: 0.5rem 1.25rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     width: 100%;
     border-radius: 0;
   }

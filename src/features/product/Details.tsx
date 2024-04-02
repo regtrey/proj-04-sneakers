@@ -22,7 +22,7 @@ const ProductImageContainer = styled.div`
   height: 55rem;
   position: relative;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     width: 90vw;
     height: 35rem;
   }
@@ -39,6 +39,10 @@ const DetailsContainer = styled.div`
   width: 70rem;
   width: max-content;
   padding: 2rem;
+
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    margin: 0 auto;
+  }
 
   @media screen and (max-width: 768px) {
     width: 90vw;
@@ -145,7 +149,17 @@ const SizeContainer = styled.div<IError>`
   ${(props) =>
     props.$sizeSelect === 'none' ? sizeError['none'] : sizeError['error']}
 
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 801px) and (max-width: 850px) {
+    width: 90vw;
+    gap: 3.3rem;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 800px) {
+    width: 90vw;
+    gap: 2.75rem;
+  }
+
+  @media screen and (max-width: 767px) {
     width: 90vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);

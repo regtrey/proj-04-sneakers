@@ -18,6 +18,10 @@ const StyledAccountNav = styled.div`
 
   grid-row: 1 / 2;
 
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    display: none;
+  }
+
   @media screen and (max-width: 768px) {
     display: none;
   }

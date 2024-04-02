@@ -8,7 +8,13 @@ const StyledProductDetails = styled.div`
   gap: 4rem;
   position: relative;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 768px) and (max-width: 850px) {
+    padding: 3rem;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  @media screen and (max-width: 767px) {
     padding: 2rem 0;
     padding-bottom: 4rem;
     flex-direction: column;

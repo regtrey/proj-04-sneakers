@@ -5,9 +5,9 @@ const StyledResults = styled.div`
   padding: 6rem 10rem;
   padding-bottom: 4rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     padding: 2rem 0;
-    padding-bottom: 6rem;
+    padding-bottom: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;

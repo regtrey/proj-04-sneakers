@@ -8,11 +8,11 @@ import Search from './Search';
 const modalType = {
   accountAuthenticated: css`
     width: 15rem;
-    bottom: -28.5rem;
+    bottom: -23rem;
   `,
   accountNotAuthenticated: css`
     width: 15rem;
-    bottom: -22.8rem;
+    bottom: -17.5rem;
   `,
   nav: css`
     width: 100%;
@@ -45,7 +45,7 @@ const StyledLinksModal = styled.div<IModal>`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     right: 0;
 
     ${(props) => props.$modalType && modalType[props.$modalType]}
