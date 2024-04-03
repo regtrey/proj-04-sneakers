@@ -8,10 +8,20 @@ import CartItem from './CartItem';
 import Spinner from '../../ui/Spinner';
 
 const StyledCartBag = styled.div`
-  height: 72rem;
   width: 40vw;
+  height: 72rem;
+  overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
+
+  @media screen and (min-width: 1800px) {
+    width: 50vw;
+    height: 62rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   @media screen and (min-width: 768px) and (max-width: 850px) {
     width: 90vw;

@@ -120,6 +120,7 @@ function ProductSpecs() {
     currentSelectedStyle,
     currentSelectedSize,
     handleSelect,
+    hasSelectedSize,
   } = useProductDetails();
 
   if (!shoe) return;
@@ -212,7 +213,10 @@ function ProductSpecs() {
           </ProductVariantsBox>
         ))}
       </Container>
-      <ProductSize />
+      <ProductSize
+        hasSelectedSize={hasSelectedSize}
+        setHasSelectedSize={setHasSelectedSize}
+      />
       <ButtonContainer>
         <Button
           $variant="primary"

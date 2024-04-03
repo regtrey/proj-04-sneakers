@@ -11,7 +11,7 @@ const sizeError = {
     outline: 1px solid transparent;
   `,
   error: css`
-    outline: 1px solid #c11313;
+    outline: 1px solid #ff0000;
   `,
 };
 
@@ -98,14 +98,16 @@ const SelectSizeSpan = styled.span<IError>`
   display: ${(props) => (props.$sizeSelect === 'none' ? 'none' : 'block')};
 `;
 
-function ProductSize() {
-  const {
-    shoe,
-    hasSelectedSize,
-    setHasSelectedSize,
-    currentSelectedSize,
-    handleSelect,
-  } = useProductDetails();
+interface ProductSizeProps {
+  hasSelectedSize: boolean;
+  setHasSelectedSize: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ProductSize({
+  hasSelectedSize,
+  setHasSelectedSize,
+}: ProductSizeProps) {
+  const { shoe, currentSelectedSize, handleSelect } = useProductDetails();
 
   if (!shoe) return;
 

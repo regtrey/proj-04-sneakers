@@ -44,6 +44,10 @@ const NavMisc = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (min-width: 1800px) {
+    width: 31%;
+  }
 `;
 
 const NavMiscButton = styled(NavLink)`

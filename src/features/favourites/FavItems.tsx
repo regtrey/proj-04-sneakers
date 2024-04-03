@@ -16,6 +16,10 @@ const StyledFavItems = styled.div`
   gap: 2.5rem;
   row-gap: 5rem;
 
+  @media screen and (min-width: 1800px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
