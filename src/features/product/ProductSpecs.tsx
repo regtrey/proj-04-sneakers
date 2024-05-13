@@ -191,7 +191,7 @@ function ProductSpecs() {
   return (
     <StyledProductSpecs>
       <ProductName>{name}</ProductName>
-      <ProductCategory>{category}'s Shoes</ProductCategory>
+      <ProductCategory>{category} Shoes</ProductCategory>
       <ProductPrice>${price}</ProductPrice>
       <Container>
         {image.map((variant, i) => (
